@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen">
-      <aside className="w-56 shrink-0 border-r border-line p-4">
+      <aside className="w-56 shrink-0 border-r border-border p-4">
         <p className="mb-6 px-2 font-semibold">Portfolio Admin</p>
         <nav className="grid gap-1">
           {NAV.map((item) => (
@@ -43,15 +43,15 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               href={item.href}
               className={clsx(
                 "rounded-md px-2 py-1.5 text-sm",
-                pathname === item.href ? "bg-surface font-medium" : "text-muted hover:text-foreground",
+                pathname === item.href ? "bg-muted font-medium" : "text-muted-foreground hover:text-foreground",
               )}
             >
               {item.label}
             </Link>
           ))}
         </nav>
-        <div className="mt-8 grid gap-1 border-t border-line pt-4 text-sm">
-          <a href="/" target="_blank" className="px-2 py-1.5 text-muted hover:text-foreground">
+        <div className="mt-8 grid gap-1 border-t border-border pt-4 text-sm">
+          <a href="/" target="_blank" className="px-2 py-1.5 text-muted-foreground hover:text-foreground">
             View site ↗
           </a>
           <button
@@ -59,7 +59,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               auth.clear();
               router.replace("/admin/login");
             }}
-            className="px-2 py-1.5 text-left text-muted hover:text-foreground"
+            className="px-2 py-1.5 text-left text-muted-foreground hover:text-foreground"
           >
             Log out
           </button>

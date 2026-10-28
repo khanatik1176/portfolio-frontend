@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { BigFooter } from "@/components/fx/BigFooter";
+import { FloatingNav } from "@/components/fx/FloatingNav";
+import { MotionProvider } from "@/components/fx/MotionProvider";
+import { ScrollProgress } from "@/components/fx/ScrollProgress";
 import { SectionRenderer } from "@/components/sections/SectionRenderer";
+import { labelFromSlug } from "@/components/sections/types";
 import { getPortfolio } from "@/lib/portfolio";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -27,50 +32,40 @@ async function Portfolio() {
 
   if (!data) {
     return (
-      <main className="flex min-h-screen items-center justify-center px-6 text-center text-muted">
+      <main className="flex min-h-screen items-center justify-center px-6 text-center text-muted-foreground">
         Portfolio content is unavailable right now. Please check back soon.
       </main>
     );
   }
 
   const { settings, sections } = data;
+  const name = settings.ownerName || settings.siteName;
+  const initials = name
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 3)
+    .toUpperCase();
+  const navLinks = sections
+    .filter((s) => s.type !== "HERO")
+    .map((s) => ({ slug: s.slug, label: labelFromSlug(s.slug) }));
+
+  let index = 0;
   return (
-    <>
-      <header className="sticky top-0 z-10 border-b border-line bg-background/80 backdrop-blur">
-        <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <a href="#" className="font-semibold">
-            {settings.siteName}
-          </a>
-          <ul className="hidden gap-6 text-sm text-muted sm:flex">
-            {sections
-              .filter((s) => s.type !== "HERO")
-              .map((s) => (
-                <li key={s.id}>
-                  <a href={`#${s.slug}`} className="hover:text-foreground">
-                    {s.title}
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </nav>
-      </header>
-      <main>
+    <MotionProvider>
+      <ScrollProgress />
+      <FloatingNav initials={initials} links={navLinks} />
+      <main className="overflow-x-clip">
         {sections.map((section) => (
-          <SectionRenderer key={section.id} section={section} settings={settings} />
+          <SectionRenderer
+            key={section.id}
+            section={section}
+            settings={settings}
+            index={section.type === "HERO" ? 0 : ++index}
+          />
         ))}
       </main>
-      <footer className="border-t border-line py-10 text-center text-sm text-muted">
-        <ul className="mb-4 flex justify-center gap-4">
-          {settings.socials.map((s) => (
-            <li key={s.url}>
-              <a href={s.url} target="_blank" rel="noreferrer" className="capitalize hover:text-foreground">
-                {s.platform}
-              </a>
-            </li>
-          ))}
-        </ul>
-        © {settings.ownerName || settings.siteName}
-      </footer>
-    </>
+      <BigFooter name={name} socials={settings.socials} />
+    </MotionProvider>
   );
 }

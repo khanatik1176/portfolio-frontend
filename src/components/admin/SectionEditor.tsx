@@ -8,6 +8,18 @@ import { JsonField } from "./JsonField";
 import { Button, Card, ErrorText, Field, inputClass } from "./ui";
 
 /** Remount with `key={id}` when switching sections to reset local state. */
+/** Content / item fields each section type's component reads on the public site. */
+const TYPE_HINTS: Partial<Record<Section["type"], string>> = {
+  HERO: 'content: currentRole{ title, company, since: "2025-10-01" } (terminal status line; falls back to badge), rolePrefix, roles[], ctaLabel, ctaHref, secondaryCtaLabel, secondaryCtaHref, stack[] (orbiting icons, e.g. "Next.js"), chips[{ value, label }] (floating cards), availability, timeZone (e.g. Asia/Dhaka for the live clock). Photo = Avatar URL in Site settings. Title = small line above your name.',
+  ABOUT: 'content: body, stats[{ value, suffix, label, decimals }], traits[], interests[]',
+  SKILLS: "One item per category: title = category, subtitle = tagline, tags = skills.",
+  EXPERIENCE: "Items: title = role, subtitle = company, dates, description, tags. Item data: location, highlights[]. No end date = current job.",
+  EDUCATION: "Items: title = degree, subtitle = institution, dates. Item data: grade, gradeLabel.",
+  PROJECTS: "Items: subtitle = context line, tags, link. Item data: featured (wide card), highlights[], repoUrl, badge.",
+  CONTACT: "Uses your email, location and social links from Site settings.",
+  CUSTOM: "Centered spotlight cards. Item data: badge (big circle, e.g. \"4x\"). content: body.",
+};
+
 export function SectionEditor({ id, onChanged }: { id: string; onChanged: () => void }) {
   const [section, setSection] = useState<Section | null>(null);
   const [editingItem, setEditingItem] = useState<string | "new" | null>(null);
@@ -86,6 +98,9 @@ export function SectionEditor({ id, onChanged }: { id: string; onChanged: () => 
             />
           </Field>
         </div>
+        {TYPE_HINTS[section.type] && (
+          <p className="rounded-md bg-muted px-3 py-2 text-xs text-muted-foreground">{TYPE_HINTS[section.type]}</p>
+        )}
         <JsonField
           key={section.id}
           label='Content (JSON, e.g. {"body": "..."} or {"ctaLabel": "...", "ctaHref": "#projects"})'
@@ -126,8 +141,8 @@ export function SectionEditor({ id, onChanged }: { id: string; onChanged: () => 
               onDone={() => { setEditingItem(null); void load(); }}
             />
           ) : (
-            <div key={item.id} className="flex items-center gap-2 rounded-lg border border-line px-3 py-2">
-              <span className={item.isVisible ? "flex-1" : "flex-1 text-muted line-through"}>
+            <div key={item.id} className="flex items-center gap-2 rounded-lg border border-border px-3 py-2">
+              <span className={item.isVisible ? "flex-1" : "flex-1 text-muted-foreground line-through"}>
                 {item.title}
               </span>
               <Button variant="ghost" disabled={i === 0} onClick={() => moveItem(i, -1)}>↑</Button>

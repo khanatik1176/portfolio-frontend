@@ -1,26 +1,33 @@
 import type { Section, SiteSettings } from "@/lib/types";
 import { About } from "./About";
-import { CardGrid } from "./CardGrid";
 import { Contact } from "./Contact";
+import { Education } from "./Education";
 import { Hero } from "./Hero";
+import { Projects } from "./Projects";
 import { Skills } from "./Skills";
+import { Spotlight } from "./Spotlight";
 import { Timeline } from "./Timeline";
 
-/** Picks the component for a section's type. New types fall back to CardGrid. */
-export function SectionRenderer({ section, settings }: { section: Section; settings: SiteSettings }) {
+/** Picks the component for a section's type. Remaining types fall back to the project layout. */
+export function SectionRenderer({ section, settings, index }: { section: Section; settings: SiteSettings; index: number }) {
+  const props = { section, settings, index };
   switch (section.type) {
     case "HERO":
       return <Hero section={section} settings={settings} />;
     case "ABOUT":
-      return <About section={section} settings={settings} />;
+      return <About {...props} />;
     case "SKILLS":
-      return <Skills section={section} />;
+      return <Skills {...props} />;
     case "EXPERIENCE":
+      return <Timeline {...props} />;
     case "EDUCATION":
-      return <Timeline section={section} />;
+      return <Education {...props} />;
     case "CONTACT":
-      return <Contact section={section} settings={settings} />;
+      return <Contact {...props} />;
+    case "CUSTOM":
+    case "TESTIMONIALS":
+      return <Spotlight {...props} />;
     default:
-      return <CardGrid section={section} />;
+      return <Projects {...props} />;
   }
 }

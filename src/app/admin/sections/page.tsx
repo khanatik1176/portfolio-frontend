@@ -64,12 +64,12 @@ export default function SectionsPage() {
               key={s.id}
               className={clsx(
                 "flex items-center gap-1 rounded-lg border px-2 py-1",
-                selected === s.id ? "border-accent" : "border-line",
+                selected === s.id ? "border-primary" : "border-border",
               )}
             >
               <button onClick={() => setSelected(s.id)} className="flex-1 truncate py-1 text-left text-sm">
-                <span className={s.isVisible ? "" : "text-muted line-through"}>{s.title}</span>
-                <span className="ml-2 font-mono text-[10px] text-muted">{s.type}</span>
+                <span className={s.isVisible ? "" : "text-muted-foreground line-through"}>{s.title}</span>
+                <span className="ml-2 font-mono text-[10px] text-muted-foreground">{s.type}</span>
               </button>
               <Button variant="ghost" className="px-2 py-1" disabled={i === 0} onClick={() => move(i, -1)}>↑</Button>
               <Button variant="ghost" className="px-2 py-1" disabled={i === sections.length - 1} onClick={() => move(i, 1)}>↓</Button>
@@ -96,7 +96,7 @@ export default function SectionsPage() {
         {selected ? (
           <SectionEditor key={selected} id={selected} onChanged={load} />
         ) : (
-          <p className="pt-12 text-muted">Select a section to edit it.</p>
+          <p className="pt-12 text-muted-foreground">Select a section to edit it.</p>
         )}
       </div>
     </div>

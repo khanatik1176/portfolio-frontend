@@ -64,7 +64,7 @@ export function ItemEditor({
   );
 
   return (
-    <div className="grid gap-3 rounded-lg bg-surface p-4">
+    <div className="grid gap-3 rounded-lg bg-muted p-4">
       <div className="grid gap-3 sm:grid-cols-2">
         {text("title", "Title")}
         {text("subtitle", "Subtitle")}

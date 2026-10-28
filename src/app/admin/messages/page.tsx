@@ -27,15 +27,15 @@ export default function MessagesPage() {
     <div className="grid max-w-3xl gap-4">
       <h1 className="text-2xl font-semibold">Messages</h1>
       <ErrorText error={error} />
-      {messages.length === 0 && <p className="text-muted">No messages yet.</p>}
+      {messages.length === 0 && <p className="text-muted-foreground">No messages yet.</p>}
       {messages.map((m) => (
         <Card key={m.id} className={m.isRead ? "opacity-60" : ""}>
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="font-medium">
-                {m.name} <span className="font-normal text-muted">&lt;{m.email}&gt;</span>
+                {m.name} <span className="font-normal text-muted-foreground">&lt;{m.email}&gt;</span>
               </p>
-              <p className="text-xs text-muted">{new Date(m.createdAt).toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">{new Date(m.createdAt).toLocaleString()}</p>
             </div>
             <div className="flex gap-1">
               <Button variant="ghost" onClick={() => act(`/messages/${m.id}/read?value=${!m.isRead}`, "PATCH")}>
