@@ -1,12 +1,18 @@
-import { siGithub } from "simple-icons";
+import { siFacebook, siGithub } from "simple-icons";
 
-/** Icon for a social platform name ("github", "linkedin", "email"); falls back to its initial. */
+/** Icon for a social platform name ("github", "linkedin", "facebook", "email"); falls back to its initial. */
 export function SocialIcon({ platform, className = "h-4 w-4" }: { platform: string; className?: string }) {
   switch (platform.toLowerCase()) {
     case "github":
       return (
         <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
           <path d={siGithub.path} />
+        </svg>
+      );
+    case "facebook":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+          <path d={siFacebook.path} />
         </svg>
       );
     case "linkedin":

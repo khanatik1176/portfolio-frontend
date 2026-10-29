@@ -171,6 +171,15 @@
     @apply bg-background text-foreground font-sans antialiased;
     letter-spacing: var(--tracking-normal);
   }
+  /* Neon aurora over the night-violet base; fixed so it stays put while scrolling. */
+  .dark body {
+    background-image:
+      radial-gradient(ellipse 60% 50% at 0% 0%, color-mix(in oklch, var(--chart-3) 16%, transparent), transparent 70%),
+      radial-gradient(ellipse 55% 45% at 100% 100%, color-mix(in oklch, var(--chart-2) 14%, transparent), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 55% 45%, color-mix(in oklch, oklch(0.45 0.18 275) 18%, transparent), transparent 75%),
+      linear-gradient(180deg, oklch(0.21 0.05 292) 0%, oklch(0.19 0.05 285) 50%, oklch(0.2 0.055 300) 100%);
+    background-attachment: fixed;
+  }
   ::selection {
     @apply bg-primary text-primary-foreground;
   }
@@ -232,6 +241,10 @@
   --muted: oklch(0.33 0.05 240);
   --border: oklch(0.4 0.06 240);
   --input: oklch(0.4 0.06 240);
+  /* Teal → violet sweep with a soft cyan bloom in the corner. */
+  background-image:
+    radial-gradient(ellipse at 100% 0%, color-mix(in oklch, var(--chart-2) 14%, transparent), transparent 55%),
+    linear-gradient(135deg, oklch(0.25 0.055 235) 0%, oklch(0.24 0.06 270) 55%, oklch(0.25 0.065 300) 100%);
 }
 
 /* Always-dark night panel, a step lighter than the dark page so it reads as its own surface. */
@@ -331,4 +344,27 @@
   --muted: oklch(0.27 0.05 295);
   --muted-foreground: oklch(0.76 0.04 300);
   --border: oklch(0.37 0.07 298);
+}
+
+/* Slow orbit used by the contact constellation; pauses while hovered. */
+@keyframes cp-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.cp-orbit {
+  animation: cp-orbit 60s linear infinite;
+}
+.cp-orbit-counter {
+  animation: cp-orbit 60s linear infinite reverse;
+}
+.cp-orbit-host:hover .cp-orbit,
+.cp-orbit-host:hover .cp-orbit-counter {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cp-orbit,
+  .cp-orbit-counter {
+    animation: none;
+  }
 }

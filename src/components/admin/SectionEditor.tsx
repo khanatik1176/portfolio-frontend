@@ -17,7 +17,7 @@ const TYPE_HINTS: Partial<Record<Section["type"], string>> = {
   EDUCATION: "Items: title = degree, subtitle = institution, dates. Item data: grade, gradeLabel.",
   PROJECTS: "Items: subtitle = context line, tags, link. Item data: featured (wide card), highlights[], repoUrl, badge.",
   CONTACT: "Uses your email, location and social links from Site settings.",
-  CUSTOM: "Centered spotlight cards. Item data: badge (big circle, e.g. \"4x\"). content: body.",
+  CUSTOM: "Centered spotlight cards. Item data: badge (big circle, e.g. \"4x\"). content: body. Set content.layout = \"publications\" for the research archive (items: title, link, subtitle = venue, start date = published).",
 };
 
 export function SectionEditor({ id, onChanged }: { id: string; onChanged: () => void }) {

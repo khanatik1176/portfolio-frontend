@@ -4,6 +4,7 @@ import { Contact } from "./Contact";
 import { Education } from "./Education";
 import { Hero } from "./Hero";
 import { Projects } from "./Projects";
+import { Publications } from "./Publications";
 import { Skills } from "./Skills";
 import { Spotlight } from "./Spotlight";
 import { Timeline } from "./Timeline";
@@ -25,6 +26,9 @@ export function SectionRenderer({ section, settings, index }: { section: Section
     case "CONTACT":
       return <Contact {...props} />;
     case "CUSTOM":
+      // Custom sections can opt into a dedicated layout via content.layout.
+      if (section.content.layout === "publications") return <Publications {...props} />;
+      return <Spotlight {...props} />;
     case "TESTIMONIALS":
       return <Spotlight {...props} />;
     default:
