@@ -3,90 +3,92 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.9892 0.0054 117.9205);
-  --foreground: oklch(0.2077 0.0398 265.7549);
+  /* Cyberpunk, light: lavender-white with neon yellow, magenta and cyan. */
+  --background: oklch(0.98 0.012 300);
+  --foreground: oklch(0.2 0.06 295);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2077 0.0398 265.7549);
+  --card-foreground: oklch(0.2 0.06 295);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2077 0.0398 265.7549);
-  --primary: oklch(0.8871 0.2122 128.5041);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(0.3717 0.0392 257.287);
-  --secondary-foreground: oklch(0.9842 0.0034 247.8575);
-  --muted: oklch(0.9683 0.0069 247.8956);
-  --muted-foreground: oklch(0.5544 0.0407 257.4166);
-  --accent: oklch(0.9819 0.0181 155.8263);
-  --accent-foreground: oklch(0.4479 0.1083 151.3277);
-  --destructive: oklch(0.6368 0.2078 25.3313);
+  --popover-foreground: oklch(0.2 0.06 295);
+  --primary: oklch(0.9 0.19 104);
+  --primary-foreground: oklch(0.15 0.04 295);
+  --secondary: oklch(0.22 0.07 295);
+  --secondary-foreground: oklch(0.98 0.012 300);
+  --muted: oklch(0.95 0.02 300);
+  --muted-foreground: oklch(0.5 0.06 295);
+  --accent: oklch(0.95 0.04 335);
+  --accent-foreground: oklch(0.55 0.25 345);
+  --destructive: oklch(0.6 0.24 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9288 0.0126 255.5078);
-  --input: oklch(0.9288 0.0126 255.5078);
-  --ring: oklch(0.8871 0.2122 128.5041);
-  --chart-1: oklch(0.8871 0.2122 128.5041);
-  --chart-2: oklch(0.3717 0.0392 257.287);
-  --chart-3: oklch(0.7227 0.192 149.5793);
-  --chart-4: oklch(0.5544 0.0407 257.4166);
-  --chart-5: oklch(0.7107 0.0351 256.7878);
+  --border: oklch(0.88 0.04 300);
+  --input: oklch(0.88 0.04 300);
+  --ring: oklch(0.9 0.19 104);
+  --chart-1: oklch(0.9 0.19 104);
+  --chart-2: oklch(0.65 0.14 210);
+  --chart-3: oklch(0.58 0.26 345);
+  --chart-4: oklch(0.5 0.22 300);
+  --chart-5: oklch(0.6 0.24 25);
   --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.2077 0.0398 265.7549);
-  --sidebar-primary: oklch(0.8871 0.2122 128.5041);
-  --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(0.9842 0.0034 247.8575);
-  --sidebar-accent-foreground: oklch(0.2077 0.0398 265.7549);
-  --sidebar-border: oklch(0.9683 0.0069 247.8956);
-  --sidebar-ring: oklch(0.8871 0.2122 128.5041);
-  /* Lime is unreadable as text on the light background, so accent text uses green there. */
-  --highlight: oklch(0.4479 0.1083 151.3277);
+  --sidebar-foreground: oklch(0.2 0.06 295);
+  --sidebar-primary: oklch(0.9 0.19 104);
+  --sidebar-primary-foreground: oklch(0.15 0.04 295);
+  --sidebar-accent: oklch(0.95 0.02 300);
+  --sidebar-accent-foreground: oklch(0.2 0.06 295);
+  --sidebar-border: oklch(0.92 0.03 300);
+  --sidebar-ring: oklch(0.9 0.19 104);
+  /* Accent text: neon yellow is unreadable on light backgrounds, so use hot magenta. */
+  --highlight: oklch(0.55 0.25 345);
   --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", monospace;
   --radius: 1rem;
-  --shadow-2xs: 0px 8px 20px 0px hsl(0 0% 0% / 0.03);
-  --shadow-xs: 0px 8px 20px 0px hsl(0 0% 0% / 0.03);
-  --shadow-sm: 0px 8px 20px 0px hsl(0 0% 0% / 0.05), 0px 1px 2px -1px hsl(0 0% 0% / 0.05);
-  --shadow: 0px 8px 20px 0px hsl(0 0% 0% / 0.05), 0px 1px 2px -1px hsl(0 0% 0% / 0.05);
-  --shadow-md: 0px 8px 20px 0px hsl(0 0% 0% / 0.05), 0px 2px 4px -1px hsl(0 0% 0% / 0.05);
-  --shadow-lg: 0px 8px 20px 0px hsl(0 0% 0% / 0.05), 0px 4px 6px -1px hsl(0 0% 0% / 0.05);
-  --shadow-xl: 0px 8px 20px 0px hsl(0 0% 0% / 0.05), 0px 8px 10px -1px hsl(0 0% 0% / 0.05);
-  --shadow-2xl: 0px 8px 20px 0px hsl(0 0% 0% / 0.13);
+  --shadow-2xs: 0px 8px 20px 0px hsl(280 60% 20% / 0.04);
+  --shadow-xs: 0px 8px 20px 0px hsl(280 60% 20% / 0.04);
+  --shadow-sm: 0px 8px 20px 0px hsl(280 60% 20% / 0.06), 0px 1px 2px -1px hsl(280 60% 20% / 0.06);
+  --shadow: 0px 8px 20px 0px hsl(280 60% 20% / 0.06), 0px 1px 2px -1px hsl(280 60% 20% / 0.06);
+  --shadow-md: 0px 8px 20px 0px hsl(280 60% 20% / 0.06), 0px 2px 4px -1px hsl(280 60% 20% / 0.06);
+  --shadow-lg: 0px 8px 20px 0px hsl(280 60% 20% / 0.07), 0px 4px 6px -1px hsl(280 60% 20% / 0.07);
+  --shadow-xl: 0px 8px 20px 0px hsl(280 60% 20% / 0.08), 0px 8px 10px -1px hsl(280 60% 20% / 0.08);
+  --shadow-2xl: 0px 8px 20px 0px hsl(280 60% 20% / 0.15);
   --tracking-normal: -0.01em;
   --spacing: 0.25rem;
 }
 
 .dark {
-  --background: oklch(0.1288 0.0406 264.6952);
-  --foreground: oklch(0.9842 0.0034 247.8575);
-  --card: oklch(0.2077 0.0398 265.7549);
-  --card-foreground: oklch(0.9842 0.0034 247.8575);
-  --popover: oklch(0.2077 0.0398 265.7549);
-  --popover-foreground: oklch(0.9842 0.0034 247.8575);
-  --primary: oklch(0.8871 0.2122 128.5041);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(0.2795 0.0368 260.031);
-  --secondary-foreground: oklch(0.9842 0.0034 247.8575);
-  --muted: oklch(0.2795 0.0368 260.031);
-  --muted-foreground: oklch(0.7107 0.0351 256.7878);
-  --accent: oklch(0.3925 0.0896 152.5353);
-  --accent-foreground: oklch(0.8871 0.2122 128.5041);
-  --destructive: oklch(0.4437 0.1613 26.8994);
+  /* Cyberpunk, dark: night-violet base, neon yellow primary, cyan + magenta accents. */
+  --background: oklch(0.13 0.035 295);
+  --foreground: oklch(0.96 0.02 300);
+  --card: oklch(0.18 0.05 295);
+  --card-foreground: oklch(0.96 0.02 300);
+  --popover: oklch(0.18 0.05 295);
+  --popover-foreground: oklch(0.96 0.02 300);
+  --primary: oklch(0.92 0.19 104);
+  --primary-foreground: oklch(0.13 0.035 295);
+  --secondary: oklch(0.25 0.06 295);
+  --secondary-foreground: oklch(0.96 0.02 300);
+  --muted: oklch(0.24 0.05 295);
+  --muted-foreground: oklch(0.72 0.05 300);
+  --accent: oklch(0.3 0.12 335);
+  --accent-foreground: oklch(0.75 0.25 345);
+  --destructive: oklch(0.63 0.25 22);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.2795 0.0368 260.031);
-  --input: oklch(0.2795 0.0368 260.031);
-  --ring: oklch(0.8871 0.2122 128.5041);
-  --chart-1: oklch(0.8871 0.2122 128.5041);
-  --chart-2: oklch(0.6231 0.188 259.8145);
-  --chart-3: oklch(0.7227 0.192 149.5793);
-  --chart-4: oklch(0.6268 0.2325 303.9004);
-  --chart-5: oklch(0.7686 0.1647 70.0804);
-  --sidebar: oklch(0.1288 0.0406 264.6952);
-  --sidebar-foreground: oklch(0.9842 0.0034 247.8575);
-  --sidebar-primary: oklch(0.8871 0.2122 128.5041);
-  --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(0.2795 0.0368 260.031);
-  --sidebar-accent-foreground: oklch(0.9842 0.0034 247.8575);
-  --sidebar-border: oklch(0.2795 0.0368 260.031);
-  --sidebar-ring: oklch(0.8871 0.2122 128.5041);
-  --highlight: oklch(0.8871 0.2122 128.5041);
+  --border: oklch(0.32 0.08 300);
+  --input: oklch(0.32 0.08 300);
+  --ring: oklch(0.92 0.19 104);
+  --chart-1: oklch(0.92 0.19 104);
+  --chart-2: oklch(0.87 0.15 196);
+  --chart-3: oklch(0.68 0.29 340);
+  --chart-4: oklch(0.6 0.25 300);
+  --chart-5: oklch(0.65 0.25 22);
+  --sidebar: oklch(0.13 0.035 295);
+  --sidebar-foreground: oklch(0.96 0.02 300);
+  --sidebar-primary: oklch(0.92 0.19 104);
+  --sidebar-primary-foreground: oklch(0.13 0.035 295);
+  --sidebar-accent: oklch(0.24 0.05 295);
+  --sidebar-accent-foreground: oklch(0.96 0.02 300);
+  --sidebar-border: oklch(0.32 0.08 300);
+  --sidebar-ring: oklch(0.92 0.19 104);
+  --highlight: oklch(0.92 0.19 104);
   --shadow-2xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
   --shadow-xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
   --shadow-sm: 0px 10px 25px 0px hsl(0 0% 0% / 0.4), 0px 1px 2px -1px hsl(0 0% 0% / 0.4);
@@ -196,55 +198,57 @@
    Scoped token overrides, so components inside a section restyle themselves
    without knowing which surface they sit on. */
 
-/* Soft sage panel (light + dark variants). */
+/* Violet haze panel (light + dark variants). */
 .surface-sage {
-  --background: oklch(0.955 0.028 165);
-  --card: oklch(0.99 0.01 165);
-  --muted: oklch(0.92 0.032 165);
-  --border: oklch(0.87 0.035 165);
-  --input: oklch(0.87 0.035 165);
+  --background: oklch(0.95 0.03 300);
+  --card: oklch(0.99 0.01 300);
+  --muted: oklch(0.92 0.035 300);
+  --border: oklch(0.86 0.05 300);
+  --input: oklch(0.86 0.05 300);
   background-color: var(--background);
   color: var(--foreground);
 }
 .dark .surface-sage {
-  --background: oklch(0.21 0.035 185);
-  --card: oklch(0.26 0.035 185);
-  --muted: oklch(0.3 0.035 185);
-  --border: oklch(0.34 0.035 185);
-  --input: oklch(0.34 0.035 185);
+  --background: oklch(0.19 0.06 300);
+  --card: oklch(0.24 0.07 300);
+  --muted: oklch(0.28 0.07 300);
+  --border: oklch(0.36 0.09 300);
+  --input: oklch(0.36 0.09 300);
 }
 
-/* Misty blue-gray panel (light + dark variants). */
+/* Teal night panel (light + dark variants). */
 .surface-mist {
-  --background: oklch(0.955 0.016 250);
-  --card: oklch(0.99 0.006 250);
-  --muted: oklch(0.92 0.02 250);
-  --border: oklch(0.87 0.025 250);
-  --input: oklch(0.87 0.025 250);
+  --background: oklch(0.955 0.025 210);
+  --card: oklch(0.99 0.008 210);
+  --muted: oklch(0.92 0.03 210);
+  --border: oklch(0.86 0.04 210);
+  --input: oklch(0.86 0.04 210);
   background-color: var(--background);
   color: var(--foreground);
 }
 .dark .surface-mist {
-  --background: oklch(0.2 0.045 255);
-  --card: oklch(0.25 0.045 255);
-  --muted: oklch(0.29 0.04 255);
-  --border: oklch(0.33 0.04 255);
-  --input: oklch(0.33 0.04 255);
+  --background: oklch(0.18 0.05 235);
+  --card: oklch(0.23 0.06 235);
+  --muted: oklch(0.27 0.06 235);
+  --border: oklch(0.34 0.07 235);
+  --input: oklch(0.34 0.07 235);
 }
 
-/* Always-dark panel, a step lighter than the dark page so it reads as its own surface. */
+/* Always-dark night panel, a step lighter than the dark page so it reads as its own surface. */
 .surface-ink {
-  --background: oklch(0.17 0.045 265);
-  --foreground: oklch(0.9842 0.0034 247.8575);
-  --card: oklch(0.23 0.045 265);
-  --card-foreground: oklch(0.9842 0.0034 247.8575);
-  --muted: oklch(0.2795 0.0368 260.031);
-  --muted-foreground: oklch(0.7107 0.0351 256.7878);
-  --border: oklch(0.32 0.04 262);
-  --input: oklch(0.32 0.04 262);
-  --primary: oklch(0.8871 0.2122 128.5041);
-  --primary-foreground: oklch(0 0 0);
-  --highlight: oklch(0.8871 0.2122 128.5041);
+  --background: oklch(0.1 0.04 290);
+  --foreground: oklch(0.96 0.02 300);
+  --card: oklch(0.17 0.06 290);
+  --card-foreground: oklch(0.96 0.02 300);
+  --muted: oklch(0.24 0.06 290);
+  --muted-foreground: oklch(0.72 0.05 300);
+  --border: oklch(0.3 0.09 300);
+  --input: oklch(0.3 0.09 300);
+  --primary: oklch(0.92 0.19 104);
+  --primary-foreground: oklch(0.13 0.035 295);
+  --chart-2: oklch(0.87 0.15 196);
+  --chart-3: oklch(0.68 0.29 340);
+  --highlight: oklch(0.87 0.15 196);
   background-color: var(--background);
   color: var(--foreground);
 }
@@ -267,15 +271,26 @@
   background-size: 160px 100%;
 }
 
-/* Neon accents for the hero portrait, built from theme colors.
-   Light mode swaps the gray chart tones for green and navy so they stay vivid. */
-:root {
-  --neon-1: var(--primary);
-  --neon-2: var(--chart-3);
-  --neon-3: var(--secondary);
+/* ---------- Cyberpunk helpers ---------- */
+
+@utility bg-hazard {
+  background-image: repeating-linear-gradient(-45deg, var(--primary) 0 6px, transparent 6px 12px);
 }
-.dark {
-  --neon-1: var(--primary);
-  --neon-2: var(--chart-2);
-  --neon-3: var(--chart-4);
+
+/* RGB-split jitter, played once when a .cp-glitch element is hovered. */
+@keyframes cp-glitch {
+  0% { transform: translate(0); text-shadow: none; }
+  20% { transform: translate(-2px, 1px); text-shadow: 2px 0 var(--chart-3), -2px 0 var(--chart-2); }
+  40% { transform: translate(2px, -1px); clip-path: inset(10% 0 55% 0); }
+  60% { transform: translate(-1px, 0); clip-path: inset(60% 0 5% 0); }
+  80% { transform: translate(1px, 1px); clip-path: none; text-shadow: -2px 0 var(--chart-3), 2px 0 var(--chart-2); }
+  100% { transform: translate(0); text-shadow: none; }
+}
+.cp-glitch:hover .cp-glitch-target {
+  animation: cp-glitch 0.35s steps(2, end) 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cp-glitch:hover .cp-glitch-target {
+    animation: none;
+  }
 }

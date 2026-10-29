@@ -9,7 +9,7 @@ interface NavLink {
   label: string;
 }
 
-/** Floating pill nav; the lime pill glides to whichever section is on screen. */
+/** Floating pill nav; the highlight pill glides to whichever section is on screen. */
 export function FloatingNav({ initials, links }: { initials: string; links: NavLink[] }) {
   const [active, setActive] = useState<string | null>(null);
   const listRef = useRef<HTMLUListElement>(null);

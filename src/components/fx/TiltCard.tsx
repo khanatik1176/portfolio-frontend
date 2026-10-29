@@ -4,7 +4,7 @@ import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } fr
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 
-/** 3D tilt toward the cursor with a lime spotlight that tracks it. */
+/** 3D tilt toward the cursor with a primary-color spotlight that tracks it. */
 export function TiltCard({ children, className }: { children: ReactNode; className?: string }) {
   const px = useMotionValue(0.5);
   const py = useMotionValue(0.5);

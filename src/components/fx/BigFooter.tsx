@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import type { SocialLink } from "@/lib/types";
 
-/** Oversized outlined name that fills with lime as the footer scrolls into view. */
+/** Oversized outlined name that fills with the primary color as the footer scrolls into view. */
 export function BigFooter({ name, socials }: { name: string; socials: SocialLink[] }) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });

@@ -10,7 +10,7 @@ import { Button, Card, ErrorText, Field, inputClass } from "./ui";
 /** Remount with `key={id}` when switching sections to reset local state. */
 /** Content / item fields each section type's component reads on the public site. */
 const TYPE_HINTS: Partial<Record<Section["type"], string>> = {
-  HERO: 'content: currentRole{ title, company, since: "2025-10-01" } (terminal status line; falls back to badge), rolePrefix, roles[], ctaLabel, ctaHref, secondaryCtaLabel, secondaryCtaHref, stack[] (orbiting icons, e.g. "Next.js"), chips[{ value, label }] (floating cards), availability, timeZone (e.g. Asia/Dhaka for the live clock). Photo = Avatar URL in Site settings. Title = small line above your name.',
+  HERO: 'content: currentRole{ title, company, since: "2025-10-01", summary } (shown in the status panel), openTo[] (roles cycling in the status panel), rolePrefix, roles[], ctaLabel, ctaHref, secondaryCtaLabel, secondaryCtaHref, stack[] (orbiting icons, e.g. "Next.js"), chips[{ value, label }] (floating cards), availability, timeZone (e.g. Asia/Dhaka for the live clock). Photo = Avatar URL in Site settings. Title = small line above your name.',
   ABOUT: 'content: body, stats[{ value, suffix, label, decimals }], traits[], interests[]',
   SKILLS: "One item per category: title = category, subtitle = tagline, tags = skills.",
   EXPERIENCE: "Items: title = role, subtitle = company, dates, description, tags. Item data: location, highlights[]. No end date = current job.",

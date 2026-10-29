@@ -2,11 +2,9 @@
 
 import { motion, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
 import { useRef } from "react";
-import { Magnetic } from "../fx/Magnetic";
 import { Marquee } from "../fx/Marquee";
-import { RotatingWords } from "../fx/RotatingWords";
 import { SplitText } from "../fx/SplitText";
-import { CurrentRole } from "./CurrentRole";
+import { HeroCard } from "./HeroCard";
 import { HeroPortrait } from "./HeroPortrait";
 import type { SectionProps } from "./types";
 
@@ -22,7 +20,8 @@ interface HeroContent {
   chips?: { value: string; label: string }[];
   timeZone?: string;
   availability?: string;
-  currentRole?: { title: string; company: string; since?: string };
+  openTo?: string[];
+  currentRole?: { title: string; company: string; since?: string; summary?: string };
 }
 
 export function Hero({ section, settings }: Omit<SectionProps, "index">) {
@@ -78,25 +77,6 @@ export function Hero({ section, settings }: Omit<SectionProps, "index">) {
         className="relative mx-auto grid w-full max-w-[1536px] grid-cols-1 items-center gap-20 px-4 sm:px-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-10 lg:px-8"
       >
         <div>
-          {c.currentRole ? (
-            <CurrentRole {...c.currentRole} />
-          ) : (
-            c.badge && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="mb-8 inline-flex items-center gap-2 rounded-lg border bg-card/60 px-4 py-1.5 text-sm backdrop-blur"
-              >
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
-                </span>
-                {c.badge}
-              </motion.div>
-            )
-          )}
-
           <motion.p
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
@@ -109,17 +89,6 @@ export function Hero({ section, settings }: Omit<SectionProps, "index">) {
             <SplitText text={name} delay={0.15} />
           </h1>
 
-          {c.roles && c.roles.length > 0 && (
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="mt-6 text-2xl font-semibold tracking-tight sm:text-3xl"
-            >
-              {c.rolePrefix ?? "I build"} <RotatingWords words={c.roles} />
-            </motion.p>
-          )}
-
           {section.subtitle && (
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -131,66 +100,27 @@ export function Hero({ section, settings }: Omit<SectionProps, "index">) {
             </motion.p>
           )}
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            {c.ctaLabel && c.ctaHref && (
-              <Magnetic>
-                <a
-                  href={c.ctaHref}
-                  className="group inline-flex items-center gap-2 rounded-lg bg-primary px-7 py-3.5 font-semibold text-primary-foreground shadow-[0_0_40px_-8px_var(--primary)]"
-                >
-                  {c.ctaLabel}
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
-                </a>
-              </Magnetic>
-            )}
-            {c.secondaryCtaLabel && c.secondaryCtaHref && (
-              <Magnetic>
-                <a
-                  href={c.secondaryCtaHref}
-                  className="inline-flex rounded-lg border bg-card/50 px-7 py-3.5 font-semibold backdrop-blur transition-colors hover:border-primary"
-                >
-                  {c.secondaryCtaLabel}
-                </a>
-              </Magnetic>
-            )}
-          </motion.div>
-
-          {settings.socials.length > 0 && (
-            <motion.ul
-              initial="hidden"
-              animate="show"
-              transition={{ delayChildren: 1.3, staggerChildren: 0.08 }}
-              className="mt-10 flex flex-wrap items-center gap-5 text-sm"
-            >
-              <li className="font-mono text-xs text-muted-foreground">Find me on</li>
-              {settings.socials.map((s) => (
-                <motion.li key={s.url} variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}>
-                  <a href={s.url} target="_blank" rel="noreferrer" className="capitalize underline-offset-4 hover:text-highlight hover:underline">
-                    {s.platform} ↗
-                  </a>
-                </motion.li>
-              ))}
-            </motion.ul>
-          )}
+          <div className="mt-10">
+            <HeroCard
+              rolePrefix={c.rolePrefix}
+              roles={c.roles ?? []}
+              availability={c.availability}
+              openTo={c.openTo ?? []}
+              currentRole={c.currentRole}
+              location={settings.location}
+              timeZone={c.timeZone ?? "UTC"}
+              primaryCta={c.ctaLabel && c.ctaHref ? { label: c.ctaLabel, href: c.ctaHref } : undefined}
+              secondaryCta={
+                c.secondaryCtaLabel && c.secondaryCtaHref ? { label: c.secondaryCtaLabel, href: c.secondaryCtaHref } : undefined
+              }
+              socials={settings.socials}
+              email={settings.email}
+            />
+          </div>
         </div>
 
         {settings.avatarUrl && (
-          <HeroPortrait
-            src={settings.avatarUrl}
-            alt={name}
-            location={settings.location}
-            timeZone={c.timeZone ?? "UTC"}
-            availability={c.availability}
-            stack={c.stack ?? []}
-            chips={c.chips ?? []}
-            mx={mx}
-            my={my}
-          />
+          <HeroPortrait src={settings.avatarUrl} alt={name} stack={c.stack ?? []} chips={c.chips ?? []} mx={mx} my={my} />
         )}
       </motion.div>
 

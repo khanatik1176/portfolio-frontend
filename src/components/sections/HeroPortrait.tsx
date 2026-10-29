@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useTransform, type MotionValue } from "motion/react";
-import { LiveClock } from "../fx/LiveClock";
 import { TechIcon } from "../fx/TechIcon";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -47,9 +46,6 @@ const OCTAGON = "29.3,0 70.7,0 100,29.3 100,70.7 70.7,100 29.3,100 0,70.7 0,29.3
 export function HeroPortrait({
   src,
   alt,
-  location,
-  timeZone,
-  availability,
   stack,
   chips,
   mx,
@@ -57,9 +53,6 @@ export function HeroPortrait({
 }: {
   src: string;
   alt: string;
-  location?: string | null;
-  timeZone: string;
-  availability?: string;
   stack: string[];
   chips: { value: string; label: string }[];
   mx: MotionValue<number>;
@@ -273,7 +266,8 @@ export function HeroPortrait({
               <div
                 key={s}
                 className="absolute -translate-x-1/2 -translate-y-1/2"
-                style={{ left: `${50 + 49.5 * Math.cos(a)}%`, top: `${50 + 49.5 * Math.sin(a)}%` }}
+                // Rounded so server and client serialize the same string (avoids hydration mismatch).
+                style={{ left: `${(50 + 49.5 * Math.cos(a)).toFixed(3)}%`, top: `${(50 + 49.5 * Math.sin(a)).toFixed(3)}%` }}
               >
                 <motion.div animate={{ rotate: -360 }} transition={{ duration: 45, repeat: Infinity, ease: "linear" }}>
                   <motion.div whileHover={{ scale: 1.2 }} className="group/icon relative">
@@ -353,33 +347,6 @@ export function HeroPortrait({
         </motion.div>
       ))}
 
-      {availability && (
-        <motion.div
-          style={{ x: chipX, y: chipY }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 1, 0.4, 1] }}
-          transition={{ delay: 1.9, duration: 0.5 }}
-          className="absolute -bottom-[3%] -left-2 z-30 2xl:-left-[9%]"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="p-px"
-            style={{ clipPath: CUT_PANEL, background: `linear-gradient(135deg, ${NEON_LIME}, var(--primary))` }}
-          >
-            <div className="bg-background/95 px-4 py-2.5 font-mono" style={{ clipPath: CUT_PANEL }}>
-              <p className="flex items-center gap-2 text-[11px] font-bold tracking-wider uppercase">
-                <span className="h-2 w-2 animate-pulse bg-primary shadow-[0_0_8px_var(--primary)]" />
-                {availability}
-              </p>
-              <p className="mt-1 text-[10px] tracking-wider uppercase" style={{ color: NEON_LIME }}>
-                {location && <span>{location} :: </span>}
-                <LiveClock timeZone={timeZone} />
-              </p>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
     </div>
   );
 }
