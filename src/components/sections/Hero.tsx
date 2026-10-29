@@ -2,7 +2,6 @@
 
 import { motion, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
 import { useRef } from "react";
-import { Marquee } from "../fx/Marquee";
 import { SplitText } from "../fx/SplitText";
 import { HeroCard } from "./HeroCard";
 import { HeroPortrait } from "./HeroPortrait";
@@ -41,7 +40,6 @@ export function Hero({ section, settings }: Omit<SectionProps, "index">) {
   const py = useMotionValue(-999);
   const spotlight = useMotionTemplate`radial-gradient(480px circle at ${px}px ${py}px, color-mix(in oklch, var(--chart-3) 12%, transparent), transparent 70%)`;
 
-  const marqueeText = [settings.headline, ...(c.roles ?? [])].filter(Boolean);
 
   return (
     <section
@@ -54,7 +52,7 @@ export function Hero({ section, settings }: Omit<SectionProps, "index">) {
         px.set(e.clientX - r.left);
         py.set(e.clientY - r.top);
       }}
-      className="relative flex min-h-svh items-center overflow-clip pt-28 pb-40"
+      className="relative flex min-h-svh items-center overflow-clip pt-28 pb-20"
     >
       {/* Hero-only backdrop */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -123,19 +121,6 @@ export function Hero({ section, settings }: Omit<SectionProps, "index">) {
           <HeroPortrait src={settings.avatarUrl} alt={name} stack={c.stack ?? []} chips={c.chips ?? []} mx={mx} my={my} />
         )}
       </motion.div>
-
-      {/* Giant outlined ticker along the bottom */}
-      {marqueeText.length > 0 && (
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-4 select-none">
-          <Marquee duration={70}>
-            {marqueeText.map((t) => (
-              <span key={t} className="text-outline flex shrink-0 items-center gap-6 pr-6 text-6xl font-black tracking-tighter whitespace-nowrap uppercase sm:text-8xl">
-                {t} <span className="text-highlight/50 [-webkit-text-stroke:0]">✦</span>
-              </span>
-            ))}
-          </Marquee>
-        </div>
-      )}
     </section>
   );
 }

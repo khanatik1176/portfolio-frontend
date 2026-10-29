@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { ThemeToggle } from "./ThemeToggle";
 
 interface NavLink {
   slug: string;
@@ -70,7 +69,6 @@ export function FloatingNav({ initials, links }: { initials: string; links: NavL
             </li>
           ))}
         </ul>
-        <ThemeToggle />
       </nav>
     </motion.header>
   );

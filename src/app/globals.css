@@ -3,38 +3,38 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Cyberpunk, light: lavender-white with neon yellow, magenta and cyan. */
-  --background: oklch(0.98 0.012 300);
-  --foreground: oklch(0.2 0.06 295);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.06 295);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.06 295);
+  /* Cyberpunk, light: soft lavender-grey (no white glare) with neon yellow, magenta and cyan. */
+  --background: oklch(0.945 0.02 295);
+  --foreground: oklch(0.23 0.06 295);
+  --card: oklch(0.975 0.01 295);
+  --card-foreground: oklch(0.23 0.06 295);
+  --popover: oklch(0.975 0.01 295);
+  --popover-foreground: oklch(0.23 0.06 295);
   --primary: oklch(0.9 0.19 104);
   --primary-foreground: oklch(0.15 0.04 295);
   --secondary: oklch(0.22 0.07 295);
-  --secondary-foreground: oklch(0.98 0.012 300);
-  --muted: oklch(0.95 0.02 300);
-  --muted-foreground: oklch(0.5 0.06 295);
+  --secondary-foreground: oklch(0.975 0.01 295);
+  --muted: oklch(0.915 0.025 295);
+  --muted-foreground: oklch(0.47 0.06 295);
   --accent: oklch(0.95 0.04 335);
   --accent-foreground: oklch(0.55 0.25 345);
   --destructive: oklch(0.6 0.24 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.88 0.04 300);
-  --input: oklch(0.88 0.04 300);
+  --border: oklch(0.85 0.04 295);
+  --input: oklch(0.85 0.04 295);
   --ring: oklch(0.9 0.19 104);
   --chart-1: oklch(0.9 0.19 104);
   --chart-2: oklch(0.65 0.14 210);
   --chart-3: oklch(0.58 0.26 345);
   --chart-4: oklch(0.5 0.22 300);
   --chart-5: oklch(0.6 0.24 25);
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.2 0.06 295);
+  --sidebar: oklch(0.975 0.01 295);
+  --sidebar-foreground: oklch(0.23 0.06 295);
   --sidebar-primary: oklch(0.9 0.19 104);
   --sidebar-primary-foreground: oklch(0.15 0.04 295);
-  --sidebar-accent: oklch(0.95 0.02 300);
-  --sidebar-accent-foreground: oklch(0.2 0.06 295);
-  --sidebar-border: oklch(0.92 0.03 300);
+  --sidebar-accent: oklch(0.915 0.025 295);
+  --sidebar-accent-foreground: oklch(0.23 0.06 295);
+  --sidebar-border: oklch(0.88 0.035 295);
   --sidebar-ring: oklch(0.9 0.19 104);
   /* Accent text: neon yellow is unreadable on light backgrounds, so use hot magenta. */
   --highlight: oklch(0.55 0.25 345);
@@ -55,38 +55,38 @@
 }
 
 .dark {
-  /* Cyberpunk, dark: night-violet base, neon yellow primary, cyan + magenta accents. */
-  --background: oklch(0.13 0.035 295);
-  --foreground: oklch(0.96 0.02 300);
-  --card: oklch(0.18 0.05 295);
-  --card-foreground: oklch(0.96 0.02 300);
-  --popover: oklch(0.18 0.05 295);
-  --popover-foreground: oklch(0.96 0.02 300);
+  /* Cyberpunk, dark: mid-dark night violet (not black), neon yellow primary, cyan + magenta accents. */
+  --background: oklch(0.2 0.045 292);
+  --foreground: oklch(0.95 0.02 300);
+  --card: oklch(0.25 0.05 292);
+  --card-foreground: oklch(0.95 0.02 300);
+  --popover: oklch(0.25 0.05 292);
+  --popover-foreground: oklch(0.95 0.02 300);
   --primary: oklch(0.92 0.19 104);
-  --primary-foreground: oklch(0.13 0.035 295);
-  --secondary: oklch(0.25 0.06 295);
-  --secondary-foreground: oklch(0.96 0.02 300);
-  --muted: oklch(0.24 0.05 295);
-  --muted-foreground: oklch(0.72 0.05 300);
+  --primary-foreground: oklch(0.17 0.04 292);
+  --secondary: oklch(0.29 0.055 292);
+  --secondary-foreground: oklch(0.95 0.02 300);
+  --muted: oklch(0.29 0.05 292);
+  --muted-foreground: oklch(0.78 0.04 300);
   --accent: oklch(0.3 0.12 335);
   --accent-foreground: oklch(0.75 0.25 345);
   --destructive: oklch(0.63 0.25 22);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.32 0.08 300);
-  --input: oklch(0.32 0.08 300);
+  --border: oklch(0.37 0.07 298);
+  --input: oklch(0.37 0.07 298);
   --ring: oklch(0.92 0.19 104);
   --chart-1: oklch(0.92 0.19 104);
   --chart-2: oklch(0.87 0.15 196);
   --chart-3: oklch(0.68 0.29 340);
   --chart-4: oklch(0.6 0.25 300);
   --chart-5: oklch(0.65 0.25 22);
-  --sidebar: oklch(0.13 0.035 295);
-  --sidebar-foreground: oklch(0.96 0.02 300);
+  --sidebar: oklch(0.2 0.045 292);
+  --sidebar-foreground: oklch(0.95 0.02 300);
   --sidebar-primary: oklch(0.92 0.19 104);
-  --sidebar-primary-foreground: oklch(0.13 0.035 295);
-  --sidebar-accent: oklch(0.24 0.05 295);
-  --sidebar-accent-foreground: oklch(0.96 0.02 300);
-  --sidebar-border: oklch(0.32 0.08 300);
+  --sidebar-primary-foreground: oklch(0.17 0.04 292);
+  --sidebar-accent: oklch(0.29 0.05 292);
+  --sidebar-accent-foreground: oklch(0.95 0.02 300);
+  --sidebar-border: oklch(0.37 0.07 298);
   --sidebar-ring: oklch(0.92 0.19 104);
   --highlight: oklch(0.92 0.19 104);
   --shadow-2xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
@@ -200,50 +200,50 @@
 
 /* Violet haze panel (light + dark variants). */
 .surface-sage {
-  --background: oklch(0.95 0.03 300);
-  --card: oklch(0.99 0.01 300);
-  --muted: oklch(0.92 0.035 300);
-  --border: oklch(0.86 0.05 300);
-  --input: oklch(0.86 0.05 300);
+  --background: oklch(0.915 0.035 300);
+  --card: oklch(0.96 0.015 300);
+  --muted: oklch(0.89 0.035 300);
+  --border: oklch(0.83 0.045 300);
+  --input: oklch(0.83 0.045 300);
   background-color: var(--background);
   color: var(--foreground);
 }
 .dark .surface-sage {
-  --background: oklch(0.19 0.06 300);
-  --card: oklch(0.24 0.07 300);
-  --muted: oklch(0.28 0.07 300);
-  --border: oklch(0.36 0.09 300);
-  --input: oklch(0.36 0.09 300);
+  --background: oklch(0.25 0.06 300);
+  --card: oklch(0.3 0.06 300);
+  --muted: oklch(0.33 0.06 300);
+  --border: oklch(0.41 0.07 300);
+  --input: oklch(0.41 0.07 300);
 }
 
 /* Teal night panel (light + dark variants). */
 .surface-mist {
-  --background: oklch(0.955 0.025 210);
-  --card: oklch(0.99 0.008 210);
-  --muted: oklch(0.92 0.03 210);
-  --border: oklch(0.86 0.04 210);
-  --input: oklch(0.86 0.04 210);
+  --background: oklch(0.92 0.03 215);
+  --card: oklch(0.965 0.012 215);
+  --muted: oklch(0.89 0.03 215);
+  --border: oklch(0.83 0.04 215);
+  --input: oklch(0.83 0.04 215);
   background-color: var(--background);
   color: var(--foreground);
 }
 .dark .surface-mist {
-  --background: oklch(0.18 0.05 235);
-  --card: oklch(0.23 0.06 235);
-  --muted: oklch(0.27 0.06 235);
-  --border: oklch(0.34 0.07 235);
-  --input: oklch(0.34 0.07 235);
+  --background: oklch(0.25 0.055 240);
+  --card: oklch(0.3 0.055 240);
+  --muted: oklch(0.33 0.05 240);
+  --border: oklch(0.4 0.06 240);
+  --input: oklch(0.4 0.06 240);
 }
 
 /* Always-dark night panel, a step lighter than the dark page so it reads as its own surface. */
 .surface-ink {
-  --background: oklch(0.1 0.04 290);
+  --background: oklch(0.17 0.05 290);
   --foreground: oklch(0.96 0.02 300);
-  --card: oklch(0.17 0.06 290);
+  --card: oklch(0.23 0.06 290);
   --card-foreground: oklch(0.96 0.02 300);
-  --muted: oklch(0.24 0.06 290);
+  --muted: oklch(0.28 0.06 290);
   --muted-foreground: oklch(0.72 0.05 300);
-  --border: oklch(0.3 0.09 300);
-  --input: oklch(0.3 0.09 300);
+  --border: oklch(0.35 0.08 298);
+  --input: oklch(0.35 0.08 298);
   --primary: oklch(0.92 0.19 104);
   --primary-foreground: oklch(0.13 0.035 295);
   --chart-2: oklch(0.87 0.15 196);
@@ -293,4 +293,42 @@
   .cp-glitch:hover .cp-glitch-target {
     animation: none;
   }
+}
+
+/* Dusk panel (Skills): the theme's night-violet, lifted a few steps, with a
+   faint magenta/cyan wash from the theme's neon colors. */
+.surface-dusk {
+  --background: oklch(0.915 0.03 298);
+  --card: oklch(0.96 0.012 298);
+  --muted: oklch(0.89 0.03 298);
+  --border: oklch(0.83 0.045 298);
+  --input: oklch(0.83 0.045 298);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(ellipse at 0% 0%, color-mix(in oklch, var(--chart-3) 7%, transparent), transparent 55%),
+    radial-gradient(ellipse at 100% 100%, color-mix(in oklch, var(--chart-2) 7%, transparent), transparent 55%);
+  color: var(--foreground);
+}
+.dark .surface-dusk {
+  --background: oklch(0.25 0.055 295);
+  --card: oklch(0.29 0.055 295);
+  --muted: oklch(0.32 0.055 295);
+  --muted-foreground: oklch(0.78 0.04 300);
+  --border: oklch(0.41 0.07 298);
+  --input: oklch(0.41 0.07 298);
+}
+
+/* Terminal screen: a step deeper than its panel, same violet family. */
+.surface-term {
+  --background: oklch(0.965 0.012 298);
+  --muted: oklch(0.925 0.02 298);
+  --border: oklch(0.84 0.04 298);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+.dark .surface-term {
+  --background: oklch(0.21 0.045 295);
+  --muted: oklch(0.27 0.05 295);
+  --muted-foreground: oklch(0.76 0.04 300);
+  --border: oklch(0.37 0.07 298);
 }

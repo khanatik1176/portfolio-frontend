@@ -8,6 +8,7 @@ const SURFACES = {
   sage: "surface-sage mx-2 rounded-[2.5rem] sm:mx-4",
   mist: "surface-mist mx-2 rounded-[2.5rem] sm:mx-4",
   ink: "surface-ink mx-2 rounded-[2.5rem] sm:mx-4",
+  dusk: "surface-dusk mx-2 rounded-[2.5rem] sm:mx-4",
 };
 
 /**
