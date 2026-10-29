@@ -55,40 +55,40 @@
 }
 
 .dark {
-  /* Cyberpunk, dark: mid-dark night violet (not black), neon yellow primary, cyan + magenta accents. */
-  --background: oklch(0.2 0.045 292);
-  --foreground: oklch(0.95 0.02 300);
-  --card: oklch(0.25 0.05 292);
-  --card-foreground: oklch(0.95 0.02 300);
-  --popover: oklch(0.25 0.05 292);
-  --popover-foreground: oklch(0.95 0.02 300);
-  --primary: oklch(0.92 0.19 104);
-  --primary-foreground: oklch(0.17 0.04 292);
-  --secondary: oklch(0.29 0.055 292);
-  --secondary-foreground: oklch(0.95 0.02 300);
-  --muted: oklch(0.29 0.05 292);
-  --muted-foreground: oklch(0.78 0.04 300);
-  --accent: oklch(0.3 0.12 335);
-  --accent-foreground: oklch(0.75 0.25 345);
+  /* Joker, dark: soft black with a green tint, acid Joker-green primary, emerald + lime accents. */
+  --background: oklch(0.16 0.012 155);
+  --foreground: oklch(0.95 0.02 140);
+  --card: oklch(0.2 0.015 155);
+  --card-foreground: oklch(0.95 0.02 140);
+  --popover: oklch(0.2 0.015 155);
+  --popover-foreground: oklch(0.95 0.02 140);
+  --primary: oklch(0.86 0.24 142);
+  --primary-foreground: oklch(0.14 0.01 155);
+  --secondary: oklch(0.25 0.02 155);
+  --secondary-foreground: oklch(0.95 0.02 140);
+  --muted: oklch(0.25 0.02 155);
+  --muted-foreground: oklch(0.74 0.03 145);
+  --accent: oklch(0.3 0.08 150);
+  --accent-foreground: oklch(0.86 0.24 142);
   --destructive: oklch(0.63 0.25 22);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.37 0.07 298);
-  --input: oklch(0.37 0.07 298);
-  --ring: oklch(0.92 0.19 104);
-  --chart-1: oklch(0.92 0.19 104);
-  --chart-2: oklch(0.87 0.15 196);
-  --chart-3: oklch(0.68 0.29 340);
-  --chart-4: oklch(0.6 0.25 300);
-  --chart-5: oklch(0.65 0.25 22);
-  --sidebar: oklch(0.2 0.045 292);
-  --sidebar-foreground: oklch(0.95 0.02 300);
-  --sidebar-primary: oklch(0.92 0.19 104);
-  --sidebar-primary-foreground: oklch(0.17 0.04 292);
-  --sidebar-accent: oklch(0.29 0.05 292);
-  --sidebar-accent-foreground: oklch(0.95 0.02 300);
-  --sidebar-border: oklch(0.37 0.07 298);
-  --sidebar-ring: oklch(0.92 0.19 104);
-  --highlight: oklch(0.92 0.19 104);
+  --border: oklch(0.32 0.03 152);
+  --input: oklch(0.32 0.03 152);
+  --ring: oklch(0.86 0.24 142);
+  --chart-1: oklch(0.86 0.24 142);
+  --chart-2: oklch(0.8 0.15 165);
+  --chart-3: oklch(0.9 0.2 125);
+  --chart-4: oklch(0.62 0.17 150);
+  --chart-5: oklch(0.88 0.18 110);
+  --sidebar: oklch(0.16 0.012 155);
+  --sidebar-foreground: oklch(0.95 0.02 140);
+  --sidebar-primary: oklch(0.86 0.24 142);
+  --sidebar-primary-foreground: oklch(0.14 0.01 155);
+  --sidebar-accent: oklch(0.25 0.02 155);
+  --sidebar-accent-foreground: oklch(0.95 0.02 140);
+  --sidebar-border: oklch(0.32 0.03 152);
+  --sidebar-ring: oklch(0.86 0.24 142);
+  --highlight: oklch(0.86 0.24 142);
   --shadow-2xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
   --shadow-xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
   --shadow-sm: 0px 10px 25px 0px hsl(0 0% 0% / 0.4), 0px 1px 2px -1px hsl(0 0% 0% / 0.4);
@@ -171,15 +171,16 @@
     @apply bg-background text-foreground font-sans antialiased;
     letter-spacing: var(--tracking-normal);
   }
-  /* Neon aurora over the night-violet base; fixed so it stays put while scrolling. */
+  /* Green aurora over the black base; fixed so it stays put while scrolling. */
   .dark body {
     background-image:
-      radial-gradient(ellipse 60% 50% at 0% 0%, color-mix(in oklch, var(--chart-3) 16%, transparent), transparent 70%),
-      radial-gradient(ellipse 55% 45% at 100% 100%, color-mix(in oklch, var(--chart-2) 14%, transparent), transparent 70%),
-      radial-gradient(ellipse 50% 40% at 55% 45%, color-mix(in oklch, oklch(0.45 0.18 275) 18%, transparent), transparent 75%),
-      linear-gradient(180deg, oklch(0.21 0.05 292) 0%, oklch(0.19 0.05 285) 50%, oklch(0.2 0.055 300) 100%);
+      radial-gradient(ellipse 60% 50% at 0% 0%, color-mix(in oklch, var(--primary) 9%, transparent), transparent 70%),
+      radial-gradient(ellipse 55% 45% at 100% 100%, color-mix(in oklch, var(--chart-2) 9%, transparent), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 55% 45%, color-mix(in oklch, oklch(0.5 0.15 150) 10%, transparent), transparent 75%),
+      linear-gradient(180deg, oklch(0.16 0.012 155) 0%, oklch(0.14 0.01 160) 50%, oklch(0.16 0.014 150) 100%);
     background-attachment: fixed;
   }
+
   /* Tailwind v4 gives buttons the default cursor; restore the hand on everything clickable. */
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -235,11 +236,11 @@
   color: var(--foreground);
 }
 .dark .surface-sage {
-  --background: oklch(0.25 0.06 300);
-  --card: oklch(0.3 0.06 300);
-  --muted: oklch(0.33 0.06 300);
-  --border: oklch(0.41 0.07 300);
-  --input: oklch(0.41 0.07 300);
+  --background: oklch(0.21 0.025 150);
+  --card: oklch(0.25 0.025 150);
+  --muted: oklch(0.28 0.025 150);
+  --border: oklch(0.36 0.04 150);
+  --input: oklch(0.36 0.04 150);
 }
 
 /* Teal night panel (light + dark variants). */
@@ -253,32 +254,32 @@
   color: var(--foreground);
 }
 .dark .surface-mist {
-  --background: oklch(0.25 0.055 240);
-  --card: oklch(0.3 0.055 240);
-  --muted: oklch(0.33 0.05 240);
-  --border: oklch(0.4 0.06 240);
-  --input: oklch(0.4 0.06 240);
-  /* Teal → violet sweep with a soft cyan bloom in the corner. */
+  --background: oklch(0.2 0.03 165);
+  --card: oklch(0.24 0.03 165);
+  --muted: oklch(0.27 0.03 165);
+  --border: oklch(0.35 0.045 160);
+  --input: oklch(0.35 0.045 160);
+  /* Emerald → black sweep with a soft green bloom in the corner. */
   background-image:
     radial-gradient(ellipse at 100% 0%, color-mix(in oklch, var(--chart-2) 14%, transparent), transparent 55%),
-    linear-gradient(135deg, oklch(0.25 0.055 235) 0%, oklch(0.24 0.06 270) 55%, oklch(0.25 0.065 300) 100%);
+    linear-gradient(135deg, oklch(0.2 0.03 165) 0%, oklch(0.18 0.02 155) 55%, oklch(0.19 0.03 140) 100%);
 }
 
 /* Always-dark night panel, a step lighter than the dark page so it reads as its own surface. */
 .surface-ink {
-  --background: oklch(0.17 0.05 290);
-  --foreground: oklch(0.96 0.02 300);
-  --card: oklch(0.23 0.06 290);
-  --card-foreground: oklch(0.96 0.02 300);
-  --muted: oklch(0.28 0.06 290);
-  --muted-foreground: oklch(0.72 0.05 300);
-  --border: oklch(0.35 0.08 298);
-  --input: oklch(0.35 0.08 298);
-  --primary: oklch(0.92 0.19 104);
-  --primary-foreground: oklch(0.13 0.035 295);
-  --chart-2: oklch(0.87 0.15 196);
-  --chart-3: oklch(0.68 0.29 340);
-  --highlight: oklch(0.87 0.15 196);
+  --background: oklch(0.13 0.01 155);
+  --foreground: oklch(0.95 0.02 140);
+  --card: oklch(0.19 0.015 155);
+  --card-foreground: oklch(0.95 0.02 140);
+  --muted: oklch(0.24 0.02 155);
+  --muted-foreground: oklch(0.72 0.03 145);
+  --border: oklch(0.3 0.03 152);
+  --input: oklch(0.3 0.03 152);
+  --primary: oklch(0.86 0.24 142);
+  --primary-foreground: oklch(0.14 0.01 155);
+  --chart-2: oklch(0.8 0.15 165);
+  --chart-3: oklch(0.9 0.2 125);
+  --highlight: oklch(0.86 0.24 142);
   background-color: var(--background);
   color: var(--foreground);
 }
@@ -325,8 +326,7 @@
   }
 }
 
-/* Dusk panel (Skills): the theme's night-violet, lifted a few steps, with a
-   faint magenta/cyan wash from the theme's neon colors. */
+/* Dusk panel (Skills): a lifted black-green panel with a faint wash from the theme accents. */
 .surface-dusk {
   --background: oklch(0.915 0.03 298);
   --card: oklch(0.96 0.012 298);
@@ -340,12 +340,12 @@
   color: var(--foreground);
 }
 .dark .surface-dusk {
-  --background: oklch(0.25 0.055 295);
-  --card: oklch(0.29 0.055 295);
-  --muted: oklch(0.32 0.055 295);
-  --muted-foreground: oklch(0.78 0.04 300);
-  --border: oklch(0.41 0.07 298);
-  --input: oklch(0.41 0.07 298);
+  --background: oklch(0.2 0.02 150);
+  --card: oklch(0.24 0.022 150);
+  --muted: oklch(0.27 0.022 150);
+  --muted-foreground: oklch(0.76 0.03 145);
+  --border: oklch(0.35 0.04 150);
+  --input: oklch(0.35 0.04 150);
 }
 
 /* Terminal screen: a step deeper than its panel, same violet family. */
@@ -357,10 +357,10 @@
   color: var(--foreground);
 }
 .dark .surface-term {
-  --background: oklch(0.21 0.045 295);
-  --muted: oklch(0.27 0.05 295);
-  --muted-foreground: oklch(0.76 0.04 300);
-  --border: oklch(0.37 0.07 298);
+  --background: oklch(0.15 0.012 155);
+  --muted: oklch(0.22 0.02 155);
+  --muted-foreground: oklch(0.74 0.03 145);
+  --border: oklch(0.32 0.04 152);
 }
 
 /* Slow orbit used by the contact constellation; pauses while hovered. */
