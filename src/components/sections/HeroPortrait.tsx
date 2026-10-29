@@ -9,6 +9,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const PANEL_POINTS: [number, number][] = [
   [14, 0], [100, 0], [100, 38], [95, 43], [95, 58], [100, 63], [100, 82], [84, 100], [0, 100], [0, 18],
 ];
+const PHOTO = "absolute inset-0 h-full w-full object-cover object-[50%_22%]";
 const PANEL_CLIP = `polygon(${PANEL_POINTS.map(([x, y]) => `${x}% ${y}%`).join(", ")})`;
 const PANEL_SVG = PANEL_POINTS.map(([x, y]) => `${x},${y}`).join(" ");
 
@@ -148,15 +149,61 @@ export function HeroPortrait({
           style={{ clipPath: PANEL_CLIP, background: `linear-gradient(135deg, ${NEON_LIME}, ${NEON_GREEN})` }}
         />
 
-        {/* Photo */}
+        {/* Photo with a cyberpunk grade: mono base, cyan→magenta gradient map,
+            neon highlights, chromatic aberration, rim lights, halftone, vignette. */}
         <div className="absolute inset-0 overflow-hidden bg-card" style={{ clipPath: PANEL_CLIP }}>
-          <motion.img
-            src={src}
-            alt={alt}
+          <motion.div
             initial={{ scale: 1.35 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.8, delay: 0.35, ease: EASE }}
-            className="h-full w-full object-cover object-[50%_22%] transition-transform duration-700 group-hover:scale-105"
+            className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={src} alt={alt} className={`${PHOTO} brightness-95 contrast-125 grayscale`} />
+            {/* Gradient map: tint the mono photo cyan (top) → magenta (bottom) */}
+            <div
+              aria-hidden
+              className="absolute inset-0 mix-blend-color"
+              style={{ background: "linear-gradient(170deg, var(--chart-2) 0%, var(--chart-4) 55%, var(--chart-3) 100%)" }}
+            />
+            {/* Neon-yellow lift in the highlights */}
+            <div
+              aria-hidden
+              className="absolute inset-0 opacity-40 mix-blend-soft-light"
+              style={{ background: "radial-gradient(ellipse at 50% 30%, var(--primary), transparent 65%)" }}
+            />
+            {/* Chromatic aberration: offset magenta/cyan copies that twitch now and then */}
+            {[
+              { filter: "sepia(1) saturate(8) hue-rotate(-50deg)", x: -3 },
+              { filter: "sepia(1) saturate(8) hue-rotate(140deg)", x: 3 },
+            ].map((ch) => (
+              <motion.img
+                key={ch.x}
+                src={src}
+                alt=""
+                aria-hidden
+                className={`${PHOTO} opacity-25 mix-blend-screen`}
+                style={{ filter: ch.filter }}
+                animate={{ x: [ch.x, ch.x, ch.x * 3, ch.x, ch.x] }}
+                transition={{ duration: 4, repeat: Infinity, times: [0, 0.86, 0.88, 0.9, 1] }}
+              />
+            ))}
+          </motion.div>
+
+          {/* Rim lights: cyan from the left, magenta from the right */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 mix-blend-screen"
+            style={{
+              background:
+                "linear-gradient(90deg, color-mix(in oklch, var(--chart-2) 45%, transparent) 0%, transparent 22%, transparent 78%, color-mix(in oklch, var(--chart-3) 45%, transparent) 100%)",
+            }}
+          />
+          {/* Halftone dots */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay"
+            style={{ backgroundImage: "radial-gradient(black 0.8px, transparent 0.9px)", backgroundSize: "4px 4px" }}
           />
           {GLITCH_SLICES.map((slice, i) => (
             <motion.img
@@ -171,6 +218,12 @@ export function HeroPortrait({
             />
           ))}
           <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0_2px,rgb(0_0_0/0.22)_2px_3px)]" />
+          {/* Vignette + fade into the page at the bottom */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "radial-gradient(ellipse at 50% 40%, transparent 55%, rgb(0 0 0 / 0.45) 100%)" }}
+          />
           <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/60 to-transparent" />
         </div>
 
