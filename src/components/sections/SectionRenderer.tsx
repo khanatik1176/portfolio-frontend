@@ -1,4 +1,3 @@
-import type { Section, SiteSettings } from "@/lib/types";
 import { About } from "./About";
 import { Contact } from "./Contact";
 import { Education } from "./Education";
@@ -8,13 +7,14 @@ import { Publications } from "./Publications";
 import { Skills } from "./Skills";
 import { Spotlight } from "./Spotlight";
 import { Timeline } from "./Timeline";
+import type { SectionProps } from "./types";
 
 /** Picks the component for a section's type. Remaining types fall back to the project layout. */
-export function SectionRenderer({ section, settings, index }: { section: Section; settings: SiteSettings; index: number }) {
-  const props = { section, settings, index };
+export function SectionRenderer(props: SectionProps) {
+  const { section } = props;
   switch (section.type) {
     case "HERO":
-      return <Hero section={section} settings={settings} />;
+      return <Hero {...props} />;
     case "ABOUT":
       return <About {...props} />;
     case "SKILLS":

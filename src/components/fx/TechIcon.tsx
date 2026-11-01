@@ -7,6 +7,7 @@ import {
   siDjango,
   siDocker,
   siDotnet,
+  siFastapi,
   siFramer,
   siGithub,
   siGithubcopilot,
@@ -15,6 +16,7 @@ import {
   siJavascript,
   siJest,
   siJira,
+  siMongodb,
   siMysql,
   siNestjs,
   siNextdotjs,
@@ -45,6 +47,7 @@ const ICONS: Record<string, SimpleIcon> = {
   docker: siDocker,
   aspnet: siDotnet,
   dotnet: siDotnet,
+  fastapi: siFastapi,
   framermotion: siFramer,
   github: siGithub,
   githubcopilot: siGithubcopilot,
@@ -54,6 +57,7 @@ const ICONS: Record<string, SimpleIcon> = {
   javascript: siJavascript,
   jest: siJest,
   jira: siJira,
+  mongodb: siMongodb,
   mysql: siMysql,
   nestjs: siNestjs,
   nextjs: siNextdotjs,
@@ -64,6 +68,7 @@ const ICONS: Record<string, SimpleIcon> = {
   python: siPython,
   react: siReact,
   reactjs: siReact,
+  reactnative: siReact,
   redux: siRedux,
   refine: siRefine,
   shadcn: siShadcnui,
@@ -96,21 +101,25 @@ const isDark = (hex: string) => {
   return ((n >> 16) & 255) * 0.299 + ((n >> 8) & 255) * 0.587 + (n & 255) * 0.114 < 60;
 };
 
-/** Brand icon for a technology name, an outline icon for known concepts, or its initials. */
-export function TechIcon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
+/**
+ * Brand icon for a technology name, an outline icon for known concepts, or its initials.
+ * Pass `decorative` when the name is already shown as text next to the icon.
+ */
+export function TechIcon({ name, className = "h-5 w-5", decorative = false }: { name: string; className?: string; decorative?: boolean }) {
   const key = keyOf(name);
+  const a11y = decorative ? { "aria-hidden": true } : { "aria-label": name };
   const icon = ICONS[key];
   if (icon) {
     return (
-      <svg viewBox="0 0 24 24" role="img" aria-label={name} className={className} fill={isDark(icon.hex) ? "currentColor" : `#${icon.hex}`}>
+      <svg viewBox="0 0 24 24" role={decorative ? undefined : "img"} {...a11y} className={className} fill={isDark(icon.hex) ? "currentColor" : `#${icon.hex}`}>
         <path d={icon.path} />
       </svg>
     );
   }
   const Fallback = FALLBACKS[key];
-  if (Fallback) return <Fallback className={`text-chart-2 ${className}`} aria-label={name} strokeWidth={1.75} />;
+  if (Fallback) return <Fallback className={`text-chart-2 ${className}`} {...a11y} strokeWidth={1.75} />;
   return (
-    <span className={`grid place-items-center font-mono text-[10px] font-bold ${className}`}>
+    <span role={decorative ? undefined : "img"} {...a11y} className={`grid place-items-center font-mono text-[10px] font-bold ${className}`}>
       {name.slice(0, 2).toUpperCase()}
     </span>
   );

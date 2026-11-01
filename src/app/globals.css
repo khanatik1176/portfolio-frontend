@@ -2,101 +2,52 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Joker palette on a near-black purple stage: suit purple, acid-green hair, vest orange. Dark only. */
 :root {
-  /* Cyberpunk, light: soft lavender-grey (no white glare) with neon yellow, magenta and cyan. */
-  --background: oklch(0.945 0.02 295);
-  --foreground: oklch(0.23 0.06 295);
-  --card: oklch(0.975 0.01 295);
-  --card-foreground: oklch(0.23 0.06 295);
-  --popover: oklch(0.975 0.01 295);
-  --popover-foreground: oklch(0.23 0.06 295);
-  --primary: oklch(0.9 0.19 104);
-  --primary-foreground: oklch(0.15 0.04 295);
-  --secondary: oklch(0.22 0.07 295);
-  --secondary-foreground: oklch(0.975 0.01 295);
-  --muted: oklch(0.915 0.025 295);
-  --muted-foreground: oklch(0.47 0.06 295);
-  --accent: oklch(0.95 0.04 335);
-  --accent-foreground: oklch(0.55 0.25 345);
-  --destructive: oklch(0.6 0.24 25);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.85 0.04 295);
-  --input: oklch(0.85 0.04 295);
-  --ring: oklch(0.9 0.19 104);
-  --chart-1: oklch(0.9 0.19 104);
-  --chart-2: oklch(0.65 0.14 210);
-  --chart-3: oklch(0.58 0.26 345);
-  --chart-4: oklch(0.5 0.22 300);
-  --chart-5: oklch(0.6 0.24 25);
-  --sidebar: oklch(0.975 0.01 295);
-  --sidebar-foreground: oklch(0.23 0.06 295);
-  --sidebar-primary: oklch(0.9 0.19 104);
-  --sidebar-primary-foreground: oklch(0.15 0.04 295);
-  --sidebar-accent: oklch(0.915 0.025 295);
-  --sidebar-accent-foreground: oklch(0.23 0.06 295);
-  --sidebar-border: oklch(0.88 0.035 295);
-  --sidebar-ring: oklch(0.9 0.19 104);
-  /* Accent text: neon yellow is unreadable on light backgrounds, so use hot magenta. */
-  --highlight: oklch(0.55 0.25 345);
-  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: var(--font-jetbrains), "JetBrains Mono", monospace;
+  --background: oklch(0.135 0.03 300);
+  --foreground: oklch(0.965 0.01 300);
+  --card: oklch(0.185 0.045 300);
+  --card-foreground: oklch(0.965 0.01 300);
+  --popover: oklch(0.2 0.05 300);
+  --popover-foreground: oklch(0.965 0.01 300);
+  --primary: oklch(0.87 0.23 135);
+  --primary-foreground: oklch(0.16 0.04 300);
+  --secondary: oklch(0.52 0.24 305);
+  --secondary-foreground: oklch(0.98 0.01 300);
+  --muted: oklch(0.23 0.045 300);
+  --muted-foreground: oklch(0.74 0.045 300);
+  --accent: oklch(0.3 0.12 305);
+  --accent-foreground: oklch(0.86 0.13 305);
+  --destructive: oklch(0.66 0.22 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.31 0.06 300);
+  --input: oklch(0.33 0.06 300);
+  --ring: oklch(0.87 0.23 135);
+  --chart-1: oklch(0.87 0.23 135);
+  --chart-2: oklch(0.66 0.24 305);
+  --chart-3: oklch(0.8 0.2 150);
+  --chart-4: oklch(0.76 0.17 55);
+  --chart-5: oklch(0.88 0.16 95);
+  --sidebar: oklch(0.16 0.04 300);
+  --sidebar-foreground: oklch(0.965 0.01 300);
+  --sidebar-primary: oklch(0.87 0.23 135);
+  --sidebar-primary-foreground: oklch(0.16 0.04 300);
+  --sidebar-accent: oklch(0.23 0.045 300);
+  --sidebar-accent-foreground: oklch(0.965 0.01 300);
+  --sidebar-border: oklch(0.31 0.06 300);
+  --sidebar-ring: oklch(0.87 0.23 135);
+  --highlight: oklch(0.87 0.23 135);
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-display: var(--font-syne), var(--font-geist), sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --radius: 1rem;
-  --shadow-2xs: 0px 8px 20px 0px hsl(280 60% 20% / 0.04);
-  --shadow-xs: 0px 8px 20px 0px hsl(280 60% 20% / 0.04);
-  --shadow-sm: 0px 8px 20px 0px hsl(280 60% 20% / 0.06), 0px 1px 2px -1px hsl(280 60% 20% / 0.06);
-  --shadow: 0px 8px 20px 0px hsl(280 60% 20% / 0.06), 0px 1px 2px -1px hsl(280 60% 20% / 0.06);
-  --shadow-md: 0px 8px 20px 0px hsl(280 60% 20% / 0.06), 0px 2px 4px -1px hsl(280 60% 20% / 0.06);
-  --shadow-lg: 0px 8px 20px 0px hsl(280 60% 20% / 0.07), 0px 4px 6px -1px hsl(280 60% 20% / 0.07);
-  --shadow-xl: 0px 8px 20px 0px hsl(280 60% 20% / 0.08), 0px 8px 10px -1px hsl(280 60% 20% / 0.08);
-  --shadow-2xl: 0px 8px 20px 0px hsl(280 60% 20% / 0.15);
-  --tracking-normal: -0.01em;
-  --spacing: 0.25rem;
-}
-
-.dark {
-  /* Joker, dark: soft black with a green tint, acid Joker-green primary, emerald + lime accents. */
-  --background: oklch(0.16 0.012 155);
-  --foreground: oklch(0.95 0.02 140);
-  --card: oklch(0.2 0.015 155);
-  --card-foreground: oklch(0.95 0.02 140);
-  --popover: oklch(0.2 0.015 155);
-  --popover-foreground: oklch(0.95 0.02 140);
-  --primary: oklch(0.86 0.24 142);
-  --primary-foreground: oklch(0.14 0.01 155);
-  --secondary: oklch(0.25 0.02 155);
-  --secondary-foreground: oklch(0.95 0.02 140);
-  --muted: oklch(0.25 0.02 155);
-  --muted-foreground: oklch(0.74 0.03 145);
-  --accent: oklch(0.3 0.08 150);
-  --accent-foreground: oklch(0.86 0.24 142);
-  --destructive: oklch(0.63 0.25 22);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.32 0.03 152);
-  --input: oklch(0.32 0.03 152);
-  --ring: oklch(0.86 0.24 142);
-  --chart-1: oklch(0.86 0.24 142);
-  --chart-2: oklch(0.8 0.15 165);
-  --chart-3: oklch(0.9 0.2 125);
-  --chart-4: oklch(0.62 0.17 150);
-  --chart-5: oklch(0.88 0.18 110);
-  --sidebar: oklch(0.16 0.012 155);
-  --sidebar-foreground: oklch(0.95 0.02 140);
-  --sidebar-primary: oklch(0.86 0.24 142);
-  --sidebar-primary-foreground: oklch(0.14 0.01 155);
-  --sidebar-accent: oklch(0.25 0.02 155);
-  --sidebar-accent-foreground: oklch(0.95 0.02 140);
-  --sidebar-border: oklch(0.32 0.03 152);
-  --sidebar-ring: oklch(0.86 0.24 142);
-  --highlight: oklch(0.86 0.24 142);
-  --shadow-2xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
-  --shadow-xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
-  --shadow-sm: 0px 10px 25px 0px hsl(0 0% 0% / 0.4), 0px 1px 2px -1px hsl(0 0% 0% / 0.4);
-  --shadow: 0px 10px 25px 0px hsl(0 0% 0% / 0.4), 0px 1px 2px -1px hsl(0 0% 0% / 0.4);
-  --shadow-md: 0px 10px 25px 0px hsl(0 0% 0% / 0.4), 0px 2px 4px -1px hsl(0 0% 0% / 0.4);
-  --shadow-lg: 0px 10px 25px 0px hsl(0 0% 0% / 0.4), 0px 4px 6px -1px hsl(0 0% 0% / 0.4);
-  --shadow-xl: 0px 10px 25px 0px hsl(0 0% 0% / 0.4), 0px 8px 10px -1px hsl(0 0% 0% / 0.4);
-  --shadow-2xl: 0px 10px 25px 0px hsl(0 0% 0% / 1);
+  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.3);
+  --shadow: 0 1px 3px 0 oklch(0 0 0 / 0.35);
+  --shadow-md: 0 6px 16px -4px oklch(0 0 0 / 0.45);
+  --shadow-lg: 0 16px 40px -10px oklch(0 0 0 / 0.55);
+  --shadow-xl: 0 28px 60px -16px oklch(0 0 0 / 0.65);
+  --tracking-normal: -0.005em;
 }
 
 @theme inline {
@@ -135,6 +86,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 
@@ -143,21 +95,11 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --shadow-2xs: var(--shadow-2xs);
-  --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
   --shadow: var(--shadow);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
-  --shadow-2xl: var(--shadow-2xl);
-
-  --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
-  --tracking-tight: calc(var(--tracking-normal) - 0.025em);
-  --tracking-normal: var(--tracking-normal);
-  --tracking-wide: calc(var(--tracking-normal) + 0.025em);
-  --tracking-wider: calc(var(--tracking-normal) + 0.05em);
-  --tracking-widest: calc(var(--tracking-normal) + 0.1em);
 }
 
 @layer base {
@@ -170,15 +112,6 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     letter-spacing: var(--tracking-normal);
-  }
-  /* Green aurora over the black base; fixed so it stays put while scrolling. */
-  .dark body {
-    background-image:
-      radial-gradient(ellipse 60% 50% at 0% 0%, color-mix(in oklch, var(--primary) 9%, transparent), transparent 70%),
-      radial-gradient(ellipse 55% 45% at 100% 100%, color-mix(in oklch, var(--chart-2) 9%, transparent), transparent 70%),
-      radial-gradient(ellipse 50% 40% at 55% 45%, color-mix(in oklch, oklch(0.5 0.15 150) 10%, transparent), transparent 75%),
-      linear-gradient(180deg, oklch(0.16 0.012 155) 0%, oklch(0.14 0.01 160) 50%, oklch(0.16 0.014 150) 100%);
-    background-attachment: fixed;
   }
 
   /* Tailwind v4 gives buttons the default cursor; restore the hand on everything clickable. */
@@ -198,190 +131,66 @@
   [aria-disabled="true"] {
     cursor: not-allowed;
   }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
   ::selection {
     @apply bg-primary text-primary-foreground;
   }
+}
+
+/* Purple-to-green text fill, the Joker signature. */
+@utility text-joker {
+  /* background-image, not the shorthand: the shorthand would reset the text clip. */
+  background-image: linear-gradient(100deg, var(--chart-2) 0%, oklch(0.7 0.2 330) 40%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @utility bg-grid {
   background-image:
     linear-gradient(to right, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 6%, transparent) 1px, transparent 1px);
-  background-size: 56px 56px;
+  background-size: 64px 64px;
 }
 
-@utility text-outline {
-  color: transparent;
-  -webkit-text-stroke: 1px color-mix(in oklch, var(--foreground) 22%, transparent);
+@utility bg-dots {
+  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 14%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Endless horizontal ticker: the track holds its content twice and slides by half its width. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+.marquee-track-reverse {
+  animation: marquee-reverse 40s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:hover .marquee-track-reverse {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-}
-
-/* ---------- Section surfaces ----------
-   Scoped token overrides, so components inside a section restyle themselves
-   without knowing which surface they sit on. */
-
-/* Violet haze panel (light + dark variants). */
-.surface-sage {
-  --background: oklch(0.915 0.035 300);
-  --card: oklch(0.96 0.015 300);
-  --muted: oklch(0.89 0.035 300);
-  --border: oklch(0.83 0.045 300);
-  --input: oklch(0.83 0.045 300);
-  background-color: var(--background);
-  color: var(--foreground);
-}
-.dark .surface-sage {
-  --background: oklch(0.21 0.025 150);
-  --card: oklch(0.25 0.025 150);
-  --muted: oklch(0.28 0.025 150);
-  --border: oklch(0.36 0.04 150);
-  --input: oklch(0.36 0.04 150);
-}
-
-/* Teal night panel (light + dark variants). */
-.surface-mist {
-  --background: oklch(0.92 0.03 215);
-  --card: oklch(0.965 0.012 215);
-  --muted: oklch(0.89 0.03 215);
-  --border: oklch(0.83 0.04 215);
-  --input: oklch(0.83 0.04 215);
-  background-color: var(--background);
-  color: var(--foreground);
-}
-.dark .surface-mist {
-  --background: oklch(0.2 0.03 165);
-  --card: oklch(0.24 0.03 165);
-  --muted: oklch(0.27 0.03 165);
-  --border: oklch(0.35 0.045 160);
-  --input: oklch(0.35 0.045 160);
-  /* Emerald → black sweep with a soft green bloom in the corner. */
-  background-image:
-    radial-gradient(ellipse at 100% 0%, color-mix(in oklch, var(--chart-2) 14%, transparent), transparent 55%),
-    linear-gradient(135deg, oklch(0.2 0.03 165) 0%, oklch(0.18 0.02 155) 55%, oklch(0.19 0.03 140) 100%);
-}
-
-/* Always-dark night panel, a step lighter than the dark page so it reads as its own surface. */
-.surface-ink {
-  --background: oklch(0.13 0.01 155);
-  --foreground: oklch(0.95 0.02 140);
-  --card: oklch(0.19 0.015 155);
-  --card-foreground: oklch(0.95 0.02 140);
-  --muted: oklch(0.24 0.02 155);
-  --muted-foreground: oklch(0.72 0.03 145);
-  --border: oklch(0.3 0.03 152);
-  --input: oklch(0.3 0.03 152);
-  --primary: oklch(0.86 0.24 142);
-  --primary-foreground: oklch(0.14 0.01 155);
-  --chart-2: oklch(0.8 0.15 165);
-  --chart-3: oklch(0.9 0.2 125);
-  --highlight: oklch(0.86 0.24 142);
-  background-color: var(--background);
-  color: var(--foreground);
-}
-
-@utility bg-dots {
-  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 18%, transparent) 1.2px, transparent 1.2px);
-  background-size: 22px 22px;
-}
-
-@utility bg-stripes {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    color-mix(in oklch, var(--foreground) 5%, transparent) 0 1px,
-    transparent 1px 18px
-  );
-}
-
-@utility bg-lanes {
-  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px);
-  background-size: 160px 100%;
-}
-
-/* ---------- Cyberpunk helpers ---------- */
-
-@utility bg-hazard {
-  background-image: repeating-linear-gradient(-45deg, var(--primary) 0 6px, transparent 6px 12px);
-}
-
-/* RGB-split jitter, played once when a .cp-glitch element is hovered. */
-@keyframes cp-glitch {
-  0% { transform: translate(0); text-shadow: none; }
-  20% { transform: translate(-2px, 1px); text-shadow: 2px 0 var(--chart-3), -2px 0 var(--chart-2); }
-  40% { transform: translate(2px, -1px); clip-path: inset(10% 0 55% 0); }
-  60% { transform: translate(-1px, 0); clip-path: inset(60% 0 5% 0); }
-  80% { transform: translate(1px, 1px); clip-path: none; text-shadow: -2px 0 var(--chart-3), 2px 0 var(--chart-2); }
-  100% { transform: translate(0); text-shadow: none; }
-}
-.cp-glitch:hover .cp-glitch-target {
-  animation: cp-glitch 0.35s steps(2, end) 1;
-}
-@media (prefers-reduced-motion: reduce) {
-  .cp-glitch:hover .cp-glitch-target {
-    animation: none;
-  }
-}
-
-/* Dusk panel (Skills): a lifted black-green panel with a faint wash from the theme accents. */
-.surface-dusk {
-  --background: oklch(0.915 0.03 298);
-  --card: oklch(0.96 0.012 298);
-  --muted: oklch(0.89 0.03 298);
-  --border: oklch(0.83 0.045 298);
-  --input: oklch(0.83 0.045 298);
-  background-color: var(--background);
-  background-image:
-    radial-gradient(ellipse at 0% 0%, color-mix(in oklch, var(--chart-3) 7%, transparent), transparent 55%),
-    radial-gradient(ellipse at 100% 100%, color-mix(in oklch, var(--chart-2) 7%, transparent), transparent 55%);
-  color: var(--foreground);
-}
-.dark .surface-dusk {
-  --background: oklch(0.2 0.02 150);
-  --card: oklch(0.24 0.022 150);
-  --muted: oklch(0.27 0.022 150);
-  --muted-foreground: oklch(0.76 0.03 145);
-  --border: oklch(0.35 0.04 150);
-  --input: oklch(0.35 0.04 150);
-}
-
-/* Terminal screen: a step deeper than its panel, same violet family. */
-.surface-term {
-  --background: oklch(0.965 0.012 298);
-  --muted: oklch(0.925 0.02 298);
-  --border: oklch(0.84 0.04 298);
-  background-color: var(--background);
-  color: var(--foreground);
-}
-.dark .surface-term {
-  --background: oklch(0.15 0.012 155);
-  --muted: oklch(0.22 0.02 155);
-  --muted-foreground: oklch(0.74 0.03 145);
-  --border: oklch(0.32 0.04 152);
-}
-
-/* Slow orbit used by the contact constellation; pauses while hovered. */
-@keyframes cp-orbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.cp-orbit {
-  animation: cp-orbit 60s linear infinite;
-}
-.cp-orbit-counter {
-  animation: cp-orbit 60s linear infinite reverse;
-}
-.cp-orbit-host:hover .cp-orbit,
-.cp-orbit-host:hover .cp-orbit-counter {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  .cp-orbit,
-  .cp-orbit-counter {
+  .marquee-track,
+  .marquee-track-reverse {
     animation: none;
   }
 }

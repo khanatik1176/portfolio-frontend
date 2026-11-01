@@ -1,55 +1,48 @@
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { SectionHeading } from "./SectionHeading";
-import { labelFromSlug, type SectionProps } from "./types";
+import { CardIndex } from "../fx/CardIndex";
+import { KineticTitle } from "../fx/KineticTitle";
+import { Reveal } from "../fx/Reveal";
+import { labelFromSlug, pad, type SectionProps } from "./types";
 
-const SURFACES = {
-  page: "",
-  sage: "surface-sage mx-2 rounded-[2.5rem] sm:mx-4",
-  mist: "surface-mist mx-2 rounded-[2.5rem] sm:mx-4",
-  ink: "surface-ink mx-2 rounded-[2.5rem] sm:mx-4",
-  dusk: "surface-dusk mx-2 rounded-[2.5rem] sm:mx-4",
-};
+/** A flipping card index, eyebrow and kinetic title, with the subtitle alongside. */
+export function SectionHeader({ section, index, className }: Pick<SectionProps, "section" | "index"> & { className?: string }) {
+  return (
+    <header className={clsx("relative mb-12 grid gap-6 md:mb-16 md:grid-cols-[1fr_auto] md:items-end", className)}>
+      <div className="relative flex items-end gap-5 md:gap-7">
+        <CardIndex value={pad(index)} className="mb-2 hidden sm:block" />
+        <div>
+          <Reveal>
+            <p className="mb-5 flex items-center gap-3 font-mono text-xs text-muted-foreground">
+              <span className="h-px w-8 bg-primary" />
+              <span className="tracking-[0.25em] text-primary uppercase">{labelFromSlug(section.slug)}</span>
+            </p>
+          </Reveal>
+          <h2 className="max-w-3xl font-display text-4xl leading-[1.02] font-bold tracking-tight md:text-6xl lg:text-7xl">
+            <KineticTitle text={section.title} />
+          </h2>
+        </div>
+      </div>
+      {section.subtitle && (
+        <Reveal delay={0.2} className="relative">
+          <p className="max-w-sm text-muted-foreground md:text-right">{section.subtitle}</p>
+        </Reveal>
+      )}
+    </header>
+  );
+}
 
-/**
- * Full-width section with its own surface and decoration layer.
- * Uses overflow-clip (not hidden) so sticky children keep working.
- */
+/** A content section: header, then its body. */
 export function SectionFrame({
   section,
   index,
   children,
-  surface = "page",
-  decor,
-  header = true,
   className,
-}: Omit<SectionProps, "settings"> & {
-  children: ReactNode;
-  surface?: keyof typeof SURFACES;
-  decor?: ReactNode;
-  header?: boolean;
-  className?: string;
-}) {
+}: Pick<SectionProps, "section" | "index"> & { children: ReactNode; className?: string }) {
   return (
-    <section id={section.slug} className={clsx("relative scroll-mt-24 overflow-clip", SURFACES[surface], className)}>
-      {decor && (
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          {decor}
-        </div>
-      )}
-      <div className="relative mx-auto w-full max-w-[1536px] px-4 py-24 sm:px-6 md:py-32 lg:px-8">
-        {header && <SectionIntro section={section} index={index} />}
-        {children}
-      </div>
+    <section id={section.slug} className={clsx("relative scroll-mt-20 py-24 md:py-32", className)}>
+      <SectionHeader section={section} index={index} />
+      {children}
     </section>
-  );
-}
-
-export function SectionIntro({ section, index }: Omit<SectionProps, "settings">) {
-  return (
-    <>
-      <SectionHeading index={index} eyebrow={labelFromSlug(section.slug)} title={section.title} />
-      {section.subtitle && <p className="-mt-8 mb-14 max-w-2xl text-lg text-muted-foreground">{section.subtitle}</p>}
-    </>
   );
 }
