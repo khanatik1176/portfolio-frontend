@@ -1,13 +1,10 @@
 "use client";
 
-import { BrainCircuit, Cpu, FileText, Wind, type LucideIcon } from "lucide-react";
-import { motion } from "motion/react";
-import type { SectionItem } from "@/lib/types";
+import { ArrowUpRight, BrainCircuit, Cpu, FileText, Wind, type LucideIcon } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { TiltCard } from "../fx/TiltCard";
 import { SectionFrame } from "./SectionFrame";
-import type { SectionProps } from "./types";
-
-const ACCENTS = ["var(--chart-2)", "var(--chart-3)", "var(--primary)"];
-const pad = (n: number) => String(n).padStart(2, "0");
+import { fmtMonth, pad, type SectionProps } from "./types";
 
 const TOPIC_ICONS: [RegExp, LucideIcon][] = [
   [/deep|neural|learning|vision|attention|classification/, BrainCircuit],
@@ -15,125 +12,101 @@ const TOPIC_ICONS: [RegExp, LucideIcon][] = [
   [/arduino|sensor|iot|embedded/, Cpu],
 ];
 
-/** Topic emblem chosen from the paper's title/tags. */
-function TopicIcon({ text, color }: { text: string; color: string }) {
+/** Topic icon inside a slowly spinning purple-green ring. */
+function TopicOrb({ text }: { text: string }) {
+  const reduce = useReducedMotion();
   const Icon = TOPIC_ICONS.find(([re]) => re.test(text.toLowerCase()))?.[1] ?? FileText;
-  return <Icon className="h-6 w-6" style={{ color }} strokeWidth={1.6} aria-hidden />;
-}
-
-/** "Portable Air Quality Detector…" → "portable-air-quality-detector-using.pdf". */
-const fileName = (title: string) =>
-  `${title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .split("-")
-    .filter(Boolean)
-    .slice(0, 5)
-    .join("-")}.pdf`;
-
-const fmtDate = (d: string | null) =>
-  d ? new Date(d).toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" }).toUpperCase() : null;
-
-/** Publications as a classified research archive: each paper is a data file record. */
-export function Publications({ section, index }: SectionProps) {
   return (
-    <SectionFrame
-      section={section}
-      index={index}
-      decor={
-        <>
-          <div className="bg-grid absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_30%_50%,black_15%,transparent_70%)]" />
-          <div className="absolute top-1/3 right-1/4 h-72 w-72 rounded-full bg-chart-3/10 blur-[110px]" />
-        </>
-      }
-    >
-      <p className="-mt-6 mb-10 font-mono text-[11px] tracking-[0.25em] text-muted-foreground uppercase">
-        archive <span className="text-highlight">{"//"}</span>{" "}
-        <span className="font-bold text-foreground">{pad(section.items.length)}</span> records · access: public
-      </p>
-
-      <ol className="grid gap-5">
-        {section.items.map((item, i) => (
-          <Record key={item.id} item={item} index={i} color={ACCENTS[i % ACCENTS.length]} />
-        ))}
-      </ol>
-    </SectionFrame>
+    <span className="relative grid h-16 w-16 shrink-0 place-items-center">
+      <motion.span
+        aria-hidden
+        className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,var(--secondary),var(--primary),var(--chart-4),var(--secondary))] p-[2px]"
+        animate={reduce ? undefined : { rotate: 360 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      >
+        <span className="block h-full w-full rounded-full bg-card" />
+      </motion.span>
+      <Icon className="relative h-7 w-7 text-primary" strokeWidth={1.6} aria-hidden />
+    </span>
   );
 }
 
-function Record({ item, index, color }: { item: SectionItem; index: number; color: string }) {
-  const date = fmtDate(item.startDate);
-  const venue = item.subtitle;
-
+/**
+ * Papers as stacked pages: the sheets behind fan out on hover, the title gets
+ * a highlighter swipe as it scrolls in, and the whole card links to the paper.
+ */
+export function Publications({ section, index }: SectionProps) {
   return (
-    <motion.li
-      initial={{ opacity: 0, x: -30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative overflow-hidden rounded-xl border bg-card/70 backdrop-blur transition-[border-color,box-shadow] duration-300 hover:shadow-[0_0_40px_-14px_var(--c)]"
-      style={{ ["--c" as string]: color }}
-    >
-      {/* Accent edge + hover border light + scan beam */}
-      <span aria-hidden className="absolute inset-y-0 left-0 w-1" style={{ background: color, boxShadow: `0 0 14px ${color}` }} />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ boxShadow: `inset 0 0 0 1px ${color}` }}
-      />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition-[left,opacity] duration-700 group-hover:left-full group-hover:opacity-100"
-      />
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0_3px,rgb(0_0_0/0.07)_3px_4px)]" />
+    <SectionFrame section={section} index={index}>
+      <ol className="grid gap-10 md:grid-cols-2 md:gap-8">
+        {section.items.map((item, i) => {
+          const meta = [item.subtitle, item.startDate && fmtMonth(item.startDate)].filter(Boolean).join(" · ");
+          const body = (
+            <TiltCard className="h-full rounded-[1.75rem] border bg-card p-6 sm:p-8" max={5}>
+              <div className="relative flex items-start justify-between gap-4">
+                <TopicOrb text={`${item.title} ${item.tags.join(" ")}`} />
+                <div className="text-right font-mono text-[11px] text-muted-foreground">
+                  <p className="tracking-[0.25em] text-primary uppercase">Paper {pad(i + 1)}</p>
+                  {meta && <p className="mt-1">{meta}</p>}
+                </div>
+              </div>
 
-      <div className="relative grid gap-6 p-6 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-8 md:p-8">
-        {/* Index + emblem */}
-        <div className="flex items-center gap-4 md:flex-col md:items-start md:gap-3">
-          <span className="font-mono text-[11px] font-bold tracking-[0.25em]" style={{ color }}>
-            PUB.{pad(index + 1)}
-          </span>
-          <span className="grid h-14 w-14 place-items-center rounded-xl border bg-background/60" style={{ borderColor: `color-mix(in oklch, ${color} 50%, transparent)`, boxShadow: `0 0 20px -8px ${color}` }}>
-            <TopicIcon text={`${item.title} ${item.tags.join(" ")}`} color={color} />
-          </span>
-        </div>
+              <h3 className="relative mt-7 font-serif text-2xl leading-snug sm:text-[1.9rem]">
+                <motion.span
+                  className="[box-decoration-break:clone] bg-[linear-gradient(transparent_62%,color-mix(in_oklch,var(--primary)_32%,transparent)_62%)] bg-no-repeat px-0.5 [-webkit-box-decoration-break:clone]"
+                  initial={{ backgroundSize: "0% 100%" }}
+                  whileInView={{ backgroundSize: "100% 100%" }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 1.4, delay: 0.3 + i * 0.15, ease: [0.65, 0, 0.35, 1] }}
+                >
+                  {item.title}
+                </motion.span>
+              </h3>
+              {item.description && <p className="relative mt-3 text-sm text-muted-foreground">{item.description}</p>}
 
-        {/* Paper */}
-        <div className="min-w-0">
-          <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-            <span className="flex items-center gap-1.5 normal-case tracking-normal">
-              <FileText className="h-3 w-3" aria-hidden /> {fileName(item.title)}
-            </span>
-            {venue && <span>· {venue}</span>}
-            {date && <span>· {date}</span>}
-          </p>
-          <h3 className="mt-2 text-xl leading-snug font-black tracking-tight md:text-2xl">{item.title}</h3>
-          {item.description && <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>}
-          {item.tags.length > 0 && (
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {item.tags.map((t) => (
-                <li key={t} className="rounded-md border bg-background/50 px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase">
-                  #{t}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+              {item.tags.length > 0 && (
+                <p className="relative mt-6 font-mono text-xs leading-relaxed text-muted-foreground">
+                  <span className="text-chart-2">Keywords —</span> {item.tags.join(" · ")}
+                </p>
+              )}
 
-        {/* Action */}
-        {item.link && (
-          <a
-            href={item.link}
-            target="_blank"
-            rel="noreferrer"
-            className="group/link inline-flex shrink-0 items-center gap-2 self-start rounded-lg px-5 py-3 font-mono text-xs font-bold tracking-widest uppercase md:self-center"
-            style={{ background: color, color: "var(--background)", boxShadow: `0 0 24px -6px ${color}` }}
-          >
-            read paper
-            <span className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">↗</span>
-          </a>
-        )}
-      </div>
-    </motion.li>
+              {item.link && (
+                <span className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_0_24px_-6px_var(--primary)] transition-transform group-hover:translate-x-1">
+                  Read the paper
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" aria-hidden />
+                </span>
+              )}
+            </TiltCard>
+          );
+          return (
+            <motion.li
+              key={item.id}
+              className="group/stack relative"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Sheets underneath that fan out on hover */}
+              <span
+                aria-hidden
+                className="absolute inset-0 rotate-[2.5deg] rounded-[1.75rem] border bg-secondary/25 transition-transform duration-500 group-hover/stack:translate-x-3 group-hover/stack:rotate-[5deg]"
+              />
+              <span
+                aria-hidden
+                className="absolute inset-0 -rotate-[1.5deg] rounded-[1.75rem] border bg-primary/10 transition-transform duration-500 group-hover/stack:-translate-x-3 group-hover/stack:-rotate-[4deg]"
+              />
+              {item.link ? (
+                <a href={item.link} target="_blank" rel="noreferrer" className="relative block h-full rounded-[1.75rem]">
+                  {body}
+                </a>
+              ) : (
+                <div className="relative h-full">{body}</div>
+              )}
+            </motion.li>
+          );
+        })}
+      </ol>
+    </SectionFrame>
   );
 }

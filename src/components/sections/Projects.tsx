@@ -1,213 +1,181 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import type { SectionItem } from "@/lib/types";
-import { hasTechIcon, TechIcon } from "../fx/TechIcon";
-import { SectionFrame } from "./SectionFrame";
-import type { SectionProps } from "./types";
+import { CardIndex } from "../fx/CardIndex";
+import { KineticTitle } from "../fx/KineticTitle";
+import { ProjectPreview } from "../fx/ProjectPreview";
+import { SocialIcon } from "../fx/SocialIcon";
+import { labelFromSlug, pad, type SectionProps } from "./types";
 
-type ProjectData = { featured?: boolean; highlights?: string[]; repoUrl?: string };
+interface ProjectData {
+  featured?: boolean;
+  highlights?: string[];
+  repoUrl?: string;
+}
 
-// Neon color pair per panel, cycling through the theme accents.
-const ACCENTS = [
-  ["var(--primary)", "var(--chart-3)"],
-  ["var(--chart-2)", "var(--chart-3)"],
-  ["var(--chart-3)", "var(--primary)"],
-  ["var(--chart-2)", "var(--primary)"],
-] as const;
+const TONES = ["var(--secondary)", "var(--primary)", "var(--chart-4)", "var(--chart-2)"];
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-const pad = (n: number) => String(n).padStart(2, "0");
+function ProjectCard({ item, i, total }: { item: SectionItem; i: number; total: number }) {
+  const d = item.data as ProjectData;
+  const tone = TONES[i % TONES.length];
+  return (
+    <article
+      id={item.id}
+      className="group relative flex w-full shrink-0 scroll-mt-24 flex-col gap-8 overflow-hidden rounded-[2rem] border bg-card p-6 md:p-10 lg:min-h-[min(78vh,44rem)] lg:w-[min(86vw,68rem)] lg:flex-row lg:items-center lg:gap-12"
+      style={{ ["--tone" as string]: tone }}
+    >
+      <span aria-hidden className="pointer-events-none absolute -top-32 -left-32 h-80 w-80 rounded-full opacity-30 blur-[100px] transition-opacity duration-700 group-hover:opacity-60" style={{ background: tone }} />
+      <div className="absolute top-6 right-6 z-10">
+        <CardIndex value={pad(i + 1)} size="sm" />
+      </div>
+
+      <div className="relative lg:w-[42%]">
+        <p className="flex flex-wrap items-center gap-2 pr-16 font-mono text-xs text-muted-foreground lg:pr-0">
+          <span>
+            {pad(i + 1)} / {pad(total)}
+          </span>
+          {item.subtitle && <span className="rounded-full border px-2.5 py-0.5">{item.subtitle}</span>}
+          {d.featured && <span className="rounded-full bg-primary px-2.5 py-0.5 font-sans font-semibold text-primary-foreground">Featured</span>}
+        </p>
+        <h3 className="mt-5 font-display text-3xl leading-[1.05] font-bold tracking-tight md:text-5xl">{item.title}</h3>
+        {item.description && <p className="mt-4 leading-relaxed text-muted-foreground">{item.description}</p>}
+        {d.highlights && d.highlights.length > 0 && (
+          <ul className="mt-6 grid gap-2.5">
+            {d.highlights.map((h) => (
+              <li key={h} className="flex items-center gap-3 text-sm">
+                <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full" style={{ background: tone, color: "var(--primary-foreground)" }}>
+                  <Check className="h-3 w-3" aria-hidden />
+                </span>
+                {h}
+              </li>
+            ))}
+          </ul>
+        )}
+        <ul className="mt-6 flex flex-wrap gap-1.5">
+          {item.tags.map((t) => (
+            <li key={t} className="rounded-full border bg-background/60 px-2.5 py-0.5 text-xs text-muted-foreground">
+              {t}
+            </li>
+          ))}
+        </ul>
+        {(item.link || d.repoUrl) && (
+          <div className="mt-6 flex gap-4 text-sm font-semibold">
+            {item.link && (
+              <a href={item.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
+                Visit <ArrowUpRight className="h-4 w-4" aria-hidden />
+              </a>
+            )}
+            {d.repoUrl && (
+              <a href={d.repoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground">
+                <SocialIcon platform="github" className="h-4 w-4" /> Source
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="relative flex-1 [perspective:1200px]">
+        <div className="transition-transform duration-700 ease-out group-hover:[transform:rotateY(-6deg)_rotateX(3deg)_scale(1.02)]">
+          <ProjectPreview item={item} className="shadow-[0_30px_80px_-30px_var(--tone)]" />
+        </div>
+      </div>
+    </article>
+  );
+}
 
 /**
- * Projects as a neon accordion: slim panels side by side (stacked on mobile);
- * the active one expands, shows its details, and gets a light beam running
- * around its border.
+ * Projects as a horizontal gallery: on large screens the section pins and
+ * vertical scrolling slides the cards sideways; on small screens they stack.
  */
 export function Projects({ section, index }: SectionProps) {
-  const [active, setActive] = useState(0);
+  const isFeatured = (i: SectionItem) => Boolean((i.data as ProjectData).featured);
+  const items = [...section.items].sort((a, b) => Number(isFeatured(b)) - Number(isFeatured(a)));
 
-  return (
-    <SectionFrame
-      section={section}
-      index={index}
-      surface="ink"
-      className="my-8"
-      decor={
-        <>
-          <div className="bg-grid absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
-          <div className="absolute top-1/3 left-1/4 h-[420px] w-[420px] rounded-full bg-primary/10 blur-[130px]" />
-          <div className="absolute right-0 bottom-0 h-[380px] w-[380px] rounded-full bg-chart-3/10 blur-[130px]" />
-        </>
-      }
-    >
-      <div className="flex flex-col gap-3 lg:h-[36rem] lg:flex-row">
-        {section.items.map((item, i) => (
-          <Panel
-            key={item.id}
-            item={item}
-            index={i}
-            total={section.items.length}
-            active={i === active}
-            onActivate={() => setActive(i)}
-          />
-        ))}
-      </div>
-    </SectionFrame>
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [distance, setDistance] = useState(0);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  const x = useSpring(
+    useTransform(scrollYProgress, (p) => -p * distance),
+    { stiffness: 140, damping: 30, mass: 0.4 },
   );
-}
+  const bar = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-function Panel({
-  item,
-  index,
-  total,
-  active,
-  onActivate,
-}: {
-  item: SectionItem;
-  index: number;
-  total: number;
-  active: boolean;
-  onActivate: () => void;
-}) {
-  const reduce = useReducedMotion();
-  const data = item.data as ProjectData;
-  const [a, b] = ACCENTS[index % ACCENTS.length];
+  // How far the track must travel; zero when the cards stack (small screens).
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const measure = () => {
+      const wide = window.matchMedia("(min-width: 1024px)").matches;
+      setDistance(wide ? Math.max(0, track.scrollWidth - window.innerWidth + 48) : 0);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(track);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  // A link to #<project id> scrolls to where that card is in view.
+  useEffect(() => {
+    if (!distance) return;
+    const onHash = () => {
+      const card = document.getElementById(window.location.hash.slice(1));
+      const sectionEl = sectionRef.current;
+      if (!card || !sectionEl || !trackRef.current?.contains(card)) return;
+      const p = Math.min(1, Math.max(0, (card.offsetLeft - window.innerWidth * 0.08) / distance));
+      window.scrollTo({ top: sectionEl.offsetTop + p * distance, behavior: "smooth" });
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, [distance]);
 
   return (
-    <motion.article
-      onMouseEnter={onActivate}
-      onFocus={onActivate}
-      animate={{ flexGrow: active ? 5 : 1 }}
-      transition={{ duration: reduce ? 0 : 0.6, ease: EASE }}
-      className={`group relative min-w-0 overflow-hidden rounded-2xl border bg-card/70 backdrop-blur lg:basis-0 ${
-        active ? "" : "cursor-pointer hover:bg-card"
-      }`}
-      style={{ ["--a" as string]: a, ["--b" as string]: b }}
+    <section
+      ref={sectionRef}
+      id={section.slug}
+      className="relative left-1/2 w-screen -translate-x-1/2 scroll-mt-0"
+      style={distance ? { height: `calc(${distance}px + 100vh)` } : undefined}
     >
-      {/* Accent edge + light beam around the active panel */}
-      <span aria-hidden className="absolute inset-y-0 left-0 w-[3px]" style={{ background: "linear-gradient(to bottom, var(--a), var(--b))", boxShadow: "0 0 12px var(--a)" }} />
-      {active && !reduce && (
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-2xl p-[1.5px]"
-          style={{ WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude" }}
-        >
-          <motion.span
-            className="absolute top-1/2 left-1/2 aspect-square w-[250%] -translate-x-1/2 -translate-y-1/2"
-            style={{ background: "conic-gradient(from 0deg, transparent 0 68%, var(--a) 86%, var(--b) 100%)" }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          />
-        </span>
-      )}
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0_3px,rgb(0_0_0/0.08)_3px_4px)]" />
-
-      {/* Collapsed: header row (mobile) / vertical stripe (desktop) */}
-      <button
-        type="button"
-        onClick={onActivate}
-        aria-expanded={active}
-        className={`relative flex w-full items-center gap-4 px-5 py-4 text-left lg:absolute lg:inset-0 lg:flex-col lg:items-center lg:justify-between lg:px-0 lg:py-6 ${
-          active ? "lg:pointer-events-none lg:opacity-0" : "lg:opacity-100"
-        } transition-opacity duration-300`}
-      >
-        <span className="font-mono text-xs font-bold" style={{ color: "var(--a)" }}>
-          {pad(index + 1)}
-        </span>
-        <span className="min-w-0 flex-1 truncate text-lg font-black tracking-tight uppercase lg:flex-none lg:rotate-180 lg:text-xl lg:[writing-mode:vertical-rl]">
-          {item.title}
-        </span>
-        <span className="font-mono text-[10px] text-muted-foreground lg:[writing-mode:vertical-rl]">{active ? "▾" : "▸"}</span>
-      </button>
-
-      {/* Expanded content */}
-      <AnimatePresence initial={false}>
-        {active && (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0, x: reduce ? 0 : 24 }}
-            animate={{ opacity: 1, x: 0, transition: { delay: reduce ? 0 : 0.25, duration: 0.4, ease: EASE } }}
-            exit={{ opacity: 0, transition: { duration: 0.15 } }}
-            className="relative flex h-full flex-col px-6 pb-6 lg:min-w-[34rem] lg:p-9"
-          >
-            {/* Giant outlined index */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -top-4 right-4 text-[9rem] leading-none font-black select-none"
-              style={{ color: "transparent", WebkitTextStroke: "1px color-mix(in oklch, var(--a) 40%, transparent)" }}
-            >
-              {pad(index + 1)}
-            </span>
-
-            <p className="hidden font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase lg:block">
-              project {pad(index + 1)} / {pad(total)}
+      <div className="py-24 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-center lg:overflow-hidden lg:py-0">
+        <motion.div ref={trackRef} style={{ x: distance ? x : 0 }} className="flex flex-col gap-6 px-4 sm:px-6 lg:w-max lg:flex-row lg:items-center lg:gap-8 lg:pr-24 lg:pl-[max(2rem,calc((100vw-110rem)/2+2rem))]">
+          {/* Intro panel */}
+          <div className="relative shrink-0 lg:w-[26rem]">
+            <p className="mb-5 flex items-center gap-3 font-mono text-xs">
+              <span className="h-px w-8 bg-primary" />
+              <span className="tracking-[0.25em] text-primary uppercase">
+                {pad(index)} · {labelFromSlug(section.slug)}
+              </span>
             </p>
-            {item.subtitle && (
-              <p className="mt-3 font-mono text-[11px] tracking-[0.2em] uppercase" style={{ color: "var(--a)" }}>
-                {item.subtitle}
-              </p>
-            )}
-            <h3 className="relative mt-2 max-w-xl text-3xl leading-tight font-black tracking-tight md:text-4xl">{item.title}</h3>
-            {item.description && <p className="relative mt-4 max-w-xl text-muted-foreground">{item.description}</p>}
+            <h2 className="font-display text-5xl leading-[1.02] font-bold tracking-tight md:text-7xl">
+              <KineticTitle text={section.title} />
+            </h2>
+            {section.subtitle && <p className="mt-5 max-w-sm text-lg text-muted-foreground">{section.subtitle}</p>}
+            <p className="mt-10 hidden items-center gap-3 font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase lg:flex">
+              Keep scrolling
+              <motion.span animate={{ x: [0, 8, 0] }} transition={{ duration: 1.4, repeat: Infinity }}>
+                <ArrowRight className="h-4 w-4 text-primary" aria-hidden />
+              </motion.span>
+            </p>
+          </div>
 
-            {data.highlights && data.highlights.length > 0 && (
-              <ol className="relative mt-6 max-w-xl space-y-2.5">
-                {data.highlights.map((h, i) => (
-                  <motion.li
-                    key={h}
-                    initial={{ opacity: 0, x: reduce ? 0 : 12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: reduce ? 0 : 0.35 + i * 0.07 }}
-                    className="flex items-baseline gap-3 border-b border-dashed pb-2.5 text-sm"
-                  >
-                    <span className="font-mono text-[10px]" style={{ color: "var(--a)" }}>
-                      {pad(i + 1)}
-                    </span>
-                    {h}
-                  </motion.li>
-                ))}
-              </ol>
-            )}
+          {items.map((item, i) => (
+            <ProjectCard key={item.id} item={item} i={i} total={items.length} />
+          ))}
+        </motion.div>
 
-            <div className="relative mt-auto flex flex-wrap items-center justify-between gap-4 pt-6">
-              <ul className="flex flex-wrap items-center gap-2">
-                {item.tags.map((t) =>
-                  hasTechIcon(t) ? (
-                    <li key={t} title={t} className="grid h-9 w-9 place-items-center rounded-lg border bg-background/60">
-                      <TechIcon name={t} className="h-4 w-4" />
-                    </li>
-                  ) : (
-                    <li key={t} className="rounded-lg border bg-background/60 px-2.5 py-1.5 font-mono text-[10px] text-muted-foreground uppercase">
-                      {t}
-                    </li>
-                  ),
-                )}
-              </ul>
-              <div className="flex gap-2">
-                {data.repoUrl && <CardLink href={data.repoUrl} label="Code" />}
-                {item.link && <CardLink href={item.link} label="Visit" />}
-              </div>
-            </div>
-          </motion.div>
+        {distance > 0 && (
+          <div className="mx-auto mt-10 hidden h-1 w-64 overflow-hidden rounded-full bg-border lg:block">
+            <motion.div className="h-full origin-left bg-[linear-gradient(90deg,var(--secondary),var(--primary))]" style={{ scaleX: bar }} />
+          </div>
         )}
-      </AnimatePresence>
-    </motion.article>
-  );
-}
-
-function CardLink({ href, label }: { href: string; label: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="group/link inline-flex items-center gap-1 rounded-lg px-4 py-2 font-mono text-xs font-bold tracking-widest uppercase"
-      style={{ background: "var(--a)", color: "var(--background)", boxShadow: "0 0 20px -6px var(--a)" }}
-    >
-      {label}
-      <span className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5">↗</span>
-    </a>
+      </div>
+    </section>
   );
 }
