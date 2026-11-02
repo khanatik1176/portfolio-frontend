@@ -160,6 +160,17 @@
   background-size: 20px 20px;
 }
 
+/* Light sweep across a button: slides left to right, then rests off to the side. */
+@keyframes sweep {
+  0% {
+    transform: translateX(0) skewX(-12deg);
+  }
+  60%,
+  100% {
+    transform: translateX(400%) skewX(-12deg);
+  }
+}
+
 /* Endless horizontal ticker: the track holds its content twice and slides by half its width. */
 @keyframes marquee {
   to {
