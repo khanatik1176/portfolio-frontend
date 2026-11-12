@@ -2,6 +2,7 @@ import { About } from "./About";
 import { Contact } from "./Contact";
 import { Education } from "./Education";
 import { Hero } from "./Hero";
+import { Movies } from "./Movies";
 import { Projects } from "./Projects";
 import { Publications } from "./Publications";
 import { Skills } from "./Skills";
@@ -27,7 +28,9 @@ export function SectionRenderer(props: SectionProps) {
       return <Contact {...props} />;
     case "CUSTOM":
       // Custom sections can opt into a dedicated layout via content.layout.
-      if (section.content.layout === "publications") return <Publications {...props} />;
+      if (section.content.layout === "publications")
+        return <Publications {...props} />;
+      if (section.content.layout === "movies") return <Movies {...props} />;
       return <Spotlight {...props} />;
     case "TESTIMONIALS":
       return <Spotlight {...props} />;
